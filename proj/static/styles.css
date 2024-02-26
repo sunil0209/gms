@@ -1,0 +1,32 @@
+/* myapp/static/css/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.oauth-buttons {
+    margin-top: 20px;
+}
+
+.gmail-button,
+.facebook-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.gmail-button {
+    background-color: #dd4b39; /* Gmail red */
+}
+
+.facebook-button {
+    background-color: #3b5998; /* Facebook blue */
+}
