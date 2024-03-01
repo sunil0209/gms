@@ -1,0 +1,19 @@
+Bootstrap 5
+
+
+User
+    Registration
+    Login
+    Home
+    Profile
+    Create Complain 
+    View Complain  {reply}
+
+Admin
+    Profile
+    Login
+    Home
+    Viwe all complains
+    View specific complain
+    Employees
+    View Employee Profile
