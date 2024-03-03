@@ -6,14 +6,26 @@ User
     Login
     Home
     Profile
+<<<<<<< HEAD
     Create Complain (done)
     View Complain  {reply} (done)
+=======
+    Create Complain 
+    View Complain  {reply}
+>>>>>>> 77ecec9778bd400cc81e5ecdfb4dd7d8b62e8043
 
 Admin
     Profile
     Login
     Home
+<<<<<<< HEAD
     Viwe all complains (done)
     View specific complain (done)
     Employees (done)
     View Employee Profile (done)
+=======
+    Viwe all complains
+    View specific complain
+    Employees
+    View Employee Profile
+>>>>>>> 77ecec9778bd400cc81e5ecdfb4dd7d8b62e8043
