@@ -1,2 +1,0 @@
-# gms
-Grievance Management System
