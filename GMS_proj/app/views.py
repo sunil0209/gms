@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render
 def index(request):
     return render(request, 'index.html')
 def view_all_complaint_admin(request):
