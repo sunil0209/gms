@@ -377,8 +377,35 @@ body {
 }
 /* -----------------Close-compliant reply section -----------------*/
 
+<<<<<<< HEAD
 .submit{
     color:black;
     background-color: blue;
     
 }
+=======
+.container {
+     
+    overflow: auto; /* Add overflow property for the scrollbar */
+    max-height:95vh; /* Set a maximum height for the container */
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0; /* Remove default margin for better styling */
+  }
+
+ 
+  
+
+  .container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .dataTables_filter{
+    float: right;
+
+  }
+>>>>>>> e0234a7ec98d353b76678ea6f0b461e22b61c8cc
