@@ -1,6 +1,3 @@
-from django.db import models
-
-# Create your models here.
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -8,6 +5,9 @@ from django.db import models
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from django.db import models
+
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
@@ -77,19 +77,6 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class Complaint(models.Model):
-    profile_id = models.IntegerField()
-    subject = models.CharField(max_length=40)
-    message = models.CharField(max_length=1000)
-    current_handler = models.CharField(max_length=35)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
-
-    class Meta:
-        
-        db_table = 'complaint'
-
-
 class ComplaintMessage(models.Model):
     profile_id = models.IntegerField()
     message = models.CharField(max_length=255)
@@ -108,6 +95,19 @@ class ComplaintStatus(models.Model):
     class Meta:
         
         db_table = 'complaint_status'
+
+
+class CreateComplaint(models.Model):
+    profile_id = models.IntegerField()
+    subject = models.CharField(max_length=40)
+    message = models.CharField(max_length=1000)
+    current_handler = models.CharField(max_length=35)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField()
+
+    class Meta:
+        
+        db_table = 'create_complaint'
 
 
 class Department(models.Model):
@@ -193,3 +193,15 @@ class ProfileType(models.Model):
     class Meta:
         
         db_table = 'profile_type'
+
+
+class UserRegistration(models.Model):
+    name = models.CharField(max_length=50)
+    mobile = models.IntegerField(max_length=10)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
+    confirm_password = models.CharField(max_length=50)
+
+    class Meta:
+        
+        db_table = 'user_registration'

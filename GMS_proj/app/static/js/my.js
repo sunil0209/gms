@@ -1,10 +1,19 @@
-var table = $('#example').DataTable();
+// var table = $('#example').DataTable();
 
-new $.fn.dataTable.FixedHeader(table, {
-    header:true,
+// new $.fn.dataTable.FixedHeader(table, {
+//     header:true,
+// });
+$(document).ready(function () {
+
+$("#registration_button_id").click(function (e) {
+    alert('clicked');
+ });
 });
-
 function loadContent(url) {
+    
+/////////////////
+
+ /////////////////
     fetch(url)
         .then(response => response.text())
         .then(html => {
@@ -15,6 +24,11 @@ function loadContent(url) {
                     pageLength : 5,
       lengthMenu: [[5, 10, 20,50,100 -1], [5, 10, 20,50,100]],
                 });
+
+
+
+
+
             }
             if (url.includes('login')) {
                 (function () {
@@ -43,7 +57,6 @@ function loadContent(url) {
 
 
 
+
 //--------------------------Login Validation -------------------
 
-
-            
