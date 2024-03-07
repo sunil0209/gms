@@ -36,27 +36,27 @@
                     </a>
                 </li>
                 <li class="nav-item  mb-1">
-                    <a href="# {% url 'user_registration' %}" onclick="loadContent('user_registration')">
+                    <a href="{% url 'user_registration' %}" onclick="loadContent('user_registration'); return false;">
                         <i class="fa-regular fa-user"></i>
                         User Registration
                         <span class="notification-badge"></span>
                     </a>
                 </li>
                 <li class="nav-item  mb-1">
-                    <a href="# {% url 'login' %}" onclick="loadContent('login')">
+                    <a href="{% url 'login' %}" onclick="loadContent('login'); return false;">
                         <i class="fa-regular fa-bookmark"></i>
                         Login
                         <span class="notification-badge"></span>
                     </a>
                 </li>
                 <li class="sidebar-item"> 
-                    <a href="# {% url 'complaint_user' %}" class="sidebar-link" onclick="loadContent('complaint_user')"> 
+                    <a href="{% url 'complaint_user' %}" class="sidebar-link" onclick="loadContent('complaint_user'); return false;"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
                         <span class="topic">Create Complaint</span> 
                     </a> 
                 </li> 
                 <li class="sidebar-item"> 
-                    <a href="# {% url 'view_all_complaint_admin' %}" class="sidebar-link" onclick="loadContent('view_all_complaint_admin')"> 
+                    <a href="{% url 'view_all_complaint_admin' %}" class="sidebar-link" onclick="loadContent('view_all_complaint_admin'); return false;"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
                         <span class="topic">View All Complaints</span> 
                     </a> 
@@ -76,7 +76,7 @@
                         class="sidebar-dropdown list-unstyled collapse"
                         data-bs-parent="#sidebar"> 
                         <li class="sidebar-item"> 
-                            <a href="# {% url 'login' %}" class="sidebar-link" onclick="loadContent('login')"> 
+                            <a href="{% url 'login' %}" class="sidebar-link" onclick="loadContent('login'); return false;"> 
                                 <i class="fas fa-sign-in-alt pe-2"></i> 
                                 <span class="topic">Login</span> 
                             </a> 
@@ -90,32 +90,32 @@
                             </a> 
                         </li> 
                         <li class="sidebar-item"> 
-                            <a href="#" class="sidebar-link" onclick="loadContent('')"> 
+                            <a href="#" class="sidebar-link" onclick="loadContent(''); return false;"> 
                                 <i class="fas fa-sign-out-alt pe-2" ></i> 
                                 <span class="topic">Profile</span> 
                             </a> 
                         </li> 
                        
                         <li class="sidebar-item"> 
-                            <a href="# {% url 'specific_complaint' %}" class="sidebar-link" onclick="loadContent('specific_complaint')"> 
+                            <a href="{% url 'specific_complaint' %}" class="sidebar-link" onclick="loadContent('specific_complaint'); return false;"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Specific Complaint</span> 
                             </a> 
                         </li> 
                         <li class="sidebar-item"> 
-                            <a href="# {% url 'view_complaint_reply_user' %}" class="sidebar-link" onclick="loadContent('view_complaint_reply_user')"> 
+                            <a href="{% url 'view_complaint_reply_user' %}" class="sidebar-link" onclick="loadContent('view_complaint_reply_user'); return false;"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Complaint Reply</span> 
                             </a> 
                         </li> 
                         <li class="sidebar-item"> 
-                            <a href="# {% url 'emp_profile_admin' %}" class="sidebar-link" onclick="loadContent('emp_profile_admin')"> 
+                            <a href="{% url 'emp_profile_admin' %}" class="sidebar-link" onclick="loadContent('emp_profile_admin'); return false;"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Employee</span> 
                             </a> 
                         </li> 
                         <li class="sidebar-item"> 
-                            <a href="# {% url 'view_emp_profile_admin' %}" class="sidebar-link" onclick="loadContent('view_emp_profile_admin')"> 
+                            <a href="{% url 'view_emp_profile_admin' %}" class="sidebar-link" onclick="loadContent('view_emp_profile_admin'); return false;"> 
                                 <i class="fas fa-sign-out-alt pe-2" ></i> 
                                 <span class="topic">view Employee Profile</span> 
                             </a> 
