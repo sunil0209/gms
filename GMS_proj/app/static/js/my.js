@@ -72,6 +72,7 @@ document.getElementById('load_content_link').onclick = function() {
 
 /////user_registration
 
+new DataTable('#example');
 
     function loadContent(url) {
         
@@ -114,8 +115,7 @@ document.getElementById('load_content_link').onclick = function() {
             
     }
     
-    //--------------------------Login Validation -------------------
+    // //--------------------------Login Validation -------------------
     
-    ///user_registration onload content
-
+    // ///user_registration onload content
 
