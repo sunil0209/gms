@@ -18,6 +18,8 @@ def specific_complaint(request):
     return render(request, 'specific_complaint.html')
 def complaint_user(request):
     return render(request, 'complaint_user.html')
+def profile(request):
+    return render(request, 'profile.html')
 # def user_registration(request):
 #     if request.method == 'POST':
 #         name=request.POST.get('name')
@@ -74,21 +76,5 @@ def user_registration(request):
 
 
 
-def xhr_user_registration(request):
-   
-    if request.method == 'POST':
-        name=request.POST.get('name')
-        mobile=request.POST.get('mobile')
-        email=request.POST.get('email')
-        password=request.POST.get('password')
-        confirm_password=request.POST.get('confirm_password')
-        
-        #VALIDATION 
-        if not name or not mobile or not email or not password or not confirm_password:
-            return JsonResponse({'status':'error','message':'empty','data':[]})
-        if password != confirm_password:
-            return JsonResponse({'status':'error','message':'password issue','data':[]})
-    else:
-         return JsonResponse({'status':'error','message':'Invalid request type','data':[]})
-        
+
  

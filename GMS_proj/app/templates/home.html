@@ -1,3 +1,6 @@
+{% extends 'index.html' %}
+   {% block content %}
+    {% load static %}
 {% if messages %}
           <ul class="messages">
             {% for message in messages %}
@@ -5,5 +8,6 @@
             {% endfor %}
           </ul>
           {% endif %}
-<h4>Home Page Here    
-</h1>
+<h4>Home Page Here    <h4>
+
+ {% endblock %} 

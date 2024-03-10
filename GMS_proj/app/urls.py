@@ -27,5 +27,5 @@ urlpatterns = [
     path('specific_complaint/', views.specific_complaint, name='specific_complaint'),
     path('complaint_user/', views.complaint_user, name='complaint_user'),
     path('user_registration/', views.user_registration, name='user_registration'),
-    path('xhr_user_registration/', views.xhr_user_registration, name='xhr_user_registration'),
+    path('profile/', views.profile, name='profile'),
 ]

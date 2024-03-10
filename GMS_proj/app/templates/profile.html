@@ -1,0 +1,56 @@
+
+{% extends 'index.html' %}
+   {% block content %}
+    {% load static %}
+<div class="row">
+
+    <!-- General Information Section -->
+    <div class="col-md-6">
+      <fieldset class="border p-2">
+        <legend class="w-auto">General Information</legend>
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Ram" disabled>
+        </div>
+
+        <div class="mb-3">
+          <label for="mobile" class="form-label">Mobile:</label>
+          <input type="text" class="form-control" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="+91 1234567890" disabled>
+        </div>
+
+        <div class="mb-3">
+          <label for="gender" class="form-label">Gender:</label>
+          <input type="text" class="form-control" placeholder="Male" disabled>
+        </div>
+
+      </fieldset>
+    </div>
+
+    <!-- Personal Information Section -->
+    <div class="col-md-6">
+      <fieldset class="border p-2">
+        <legend class="w-auto">Personal Information</legend>
+        <div class="mb-3">
+            <label for="satee" class="form-label">State</label>
+            <input type="text" class="form-control" id="state" name="address" placeholder="Chhattisgarh" disabled>
+          </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">city</label>
+          <input type="text" class="form-control" id="city" name="address" placeholder="Raipur" disabled>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <input type="text" class="form-control" id="address" name="address" placeholder="Shankar Nagar"disabled>
+          </div>
+
+      </fieldset>
+    </div>
+
+  </div>
+
+</div>
+
+
+{% endblock %}

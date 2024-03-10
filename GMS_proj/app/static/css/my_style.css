@@ -390,9 +390,6 @@ body {
     margin: 0; /* Remove default margin for better styling */
   }
 
- 
-  
-
   .container::-webkit-scrollbar-thumb {
     background-color: transparent;
   }
@@ -401,3 +398,24 @@ body {
     float: right;
 
   }
+
+  /* ---------------------password filed formatting */
+input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+
+/* Add a green border when passwords match */
+.match {
+    border: 2px solid green;
+}
+
+/* Add a red border when passwords do not match */
+.no-match {
+    border: 2px solid red;
+}
