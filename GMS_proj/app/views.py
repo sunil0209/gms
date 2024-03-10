@@ -48,29 +48,29 @@ from django.http import HttpResponse
 
 def user_registration(request):
     if request.method == 'POST':
-        # Handle form data and perform validation here
-        # Replace this with your actual form processing logic
+        name, mobile, email, password, confirm_password = (
+            request.POST.get(field) for field in ('name', 'mobile', 'email', 'password', 'confirm_password')
+        )
 
-        # Example: Get form data
-        name = request.POST.get('name')
-        mobile = request.POST.get('mobile')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
+        errors = []
 
-         #VALIDATION 
-        if not name or not mobile or not email or not password or not confirm_password:
-            messages.error(request, 'All fields are required.')
-            return redirect('user_registration')
+        if not all([name, mobile, email, password, confirm_password]):
+            errors.append('All fields are required.')
+
         if password != confirm_password:
-            messages.error(request, 'Password and Confirm Password do not match')
+            errors.append('Password and Confirm Password do not match')
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
             return redirect('user_registration')
- 
-        #IF SUCCESS
+
+        # Proceed with successful registration
         messages.success(request, 'Registration successful!')
-        return redirect('home')  # Redirect to a success page
+        return redirect('home')
 
     return render(request, 'user_registration.html')
+        
 
 
 
