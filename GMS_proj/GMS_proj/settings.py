@@ -78,9 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cms',          # Your database name
-        'USER': 'root', # Your MySQL username
-        'PASSWORD': '', # Your MySQL password
-        'HOST': 'localhost',    # Your MySQL host
+        'USER': 'root_admin', # Your MySQL username
+        'PASSWORD': 'root_admin', # Your MySQL password
+        'HOST': '65.1.148.87',    # Your MySQL host
         'PORT': '3306',         # Your MySQL port
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
