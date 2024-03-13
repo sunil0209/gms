@@ -6,10 +6,10 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center mb-4">Login</h2>
+                        <h2 class="display-6 text-center mb-4">Login</h2>
                         <form class="row g-3 needs-validation" novalidate>
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Username" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid username.
                                 </div>
@@ -20,15 +20,17 @@
                                     Please enter a valid password.
                                 </div>
                             </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="rememberMe">
-                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            <div class="mb-3  forgot-password">
+                                <a href="{% url 'forgot_password' %}" class="text-danger">
+                                    <i class="fa-solid fa-lock"></i><span class="p-2">Forgot Password ?</span></a>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
                     </div>
                 </div>
             </div>
+            <p class="text-center ">Don't have an account? <a href="{% url 'user_registration' %}" class="text-warning">  Register </p>
         </div>
     </div>
 {% endblock %}
+

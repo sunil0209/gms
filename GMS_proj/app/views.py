@@ -4,13 +4,33 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.hashers import make_password
 from .models import UserRegistration
+from django.contrib.auth import authenticate, login
+
+
+
 
 def index(request):
     return render(request, 'index.html')
 def view_all_complaint_admin(request):
     return render(request, 'view_all_complaint_admin.html')
+
 def login(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Authenticate user
+        user = authenticate(request, email=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('index.html')  # Redirect to home page after successful login
+        else:
+            # Authentication failed
+            return render(request, 'login.html', {'error_message': 'Invalid email or password'})
+    else:
+        return render(request,'login.html')
+    
 def view_complaint_reply_user(request):
     return render(request, 'view_complaint_reply_user.html')
 def emp_profile_admin(request):
@@ -26,6 +46,9 @@ def profile(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def forgot_password(request):
+    return render(request, 'forgot_password.html')
 
 
 def user_registration(request):

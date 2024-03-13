@@ -419,3 +419,6 @@ input{
 .no-match {
     border: 2px solid red;
 }
+.forgot-password a{
+    text-decoration: none;
+}
