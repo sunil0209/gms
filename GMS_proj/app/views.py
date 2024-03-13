@@ -23,42 +23,23 @@ def complaint_user(request):
     return render(request, 'complaint_user.html')
 def profile(request):
     return render(request, 'profile.html')
-# def user_registration(request):
-#     if request.method == 'POST':
-#         name=request.POST.get('name')
-#         mobile=request.POST.get('mobile')
-#         email=request.POST.get('email')
-#         password=request.POST.get('password')
-#         confirm_password=request.POST.get('confirm_password')
-        
-#         #VALIDATION 
-#         if not name or not mobile or not email or not password or not confirm_password:
-#             messages.error(request, 'All fields are required.')
-#             return redirect('user_registration.html')
-#         if password != confirm_password:
-#             messages.error(request, 'Password and Confirm Password do not match')
-#             return redirect('user_registration.html')
- 
-#         #IF SUCCESS
-#         messages.success(request, 'Registration successful!')
-#         return redirect('home')  # Redirect to a success page
 
-#     return render(request, 'user_registration.html')
-# Create your views here.
 def home(request):
     return render(request, 'home.html')
-
-from django.http import HttpResponse
 
 
 def user_registration(request):
     if request.method == 'POST':
-        name=request.POST.get('name','')
-        mobile=request.POST.get('mobile','')
-        email=request.POST.get('email','')
-        password=request.POST.get('password','')
-        confirm_password=request.POST.get('confirm_password','')
+
+        name = request.POST.get('name','')
+        mobile = request.POST.get('mobile','')
+        email = request.POST.get('email','')
+        password = request.POST.get('password','')
+        confirm_password = request.POST.get('confirm_password','')
+    
+
         error_msg = []
+
         response_data = {
             'status':'',
             'message':[],
@@ -70,7 +51,7 @@ def user_registration(request):
             error_msg.append('Field Name cannot be Empty.')
         if email == '':
             error_msg.append('Field Email cannot be Empty.')
-        if email == '':
+        if mobile == '':
             error_msg.append('Field Mobile Number cannot be Empty.')
         if password == '':
             error_msg.append('Field Password cannot be Empty.')
@@ -101,17 +82,14 @@ def user_registration(request):
             response_data['data'] = request.POST
 
         return render(request,'user_registration.html',response_data)
-    
+
 
 
         
     else:
-        response_data = {
-            'status':'success',
-            'message':['asd','ssss'],
-            'data':'test'
-        }
-        return render(request, 'user_registration.html',response_data)
+      
+       
+        return render(request, 'user_registration.html')
         
 
 

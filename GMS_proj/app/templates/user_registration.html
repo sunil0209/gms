@@ -29,13 +29,13 @@
           {% if request.method == 'POST'  %}
             <ul class="messages">
               {% for info in message %}
-              <li>{{ info }}</li>
+              <li class="text-danger">{{ info }}</li>
               
               {% endfor %}
             </ul>
             {% endif %}
           
-           
+           <h5>{{name}}</h5>
 
             <button type="submit" id ="registration_button_id" class="btn btn-primary w-100">Submit</button>
           </form>
