@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from django.http import JsonResponse
-from django.http import HttpResponse
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
+
+
+
 def index(request):
     return render(request, 'index.html')
 def view_all_complaint_admin(request):
@@ -50,28 +53,65 @@ from django.http import HttpResponse
 
 def user_registration(request):
     if request.method == 'POST':
-        name, mobile, email, password, confirm_password = (
-            request.POST.get(field) for field in ('name', 'mobile', 'email', 'password', 'confirm_password')
-        )
+        name=request.POST.get('name','')
+        mobile=request.POST.get('mobile','')
+        email=request.POST.get('email','')
+        password=request.POST.get('password','')
+        confirm_password=request.POST.get('confirm_password','')
+        error_msg = []
+        response_data = {
+            'status':'',
+            'message':[],
+            'data':''
+        }
+        
 
-        errors = []
+        if name == '':
+            error_msg.append('Field Name cannot be Empty.')
+        if email == '':
+            error_msg.append('Field Email cannot be Empty.')
+        if email == '':
+            error_msg.append('Field Mobile Number cannot be Empty.')
+        if password == '':
+            error_msg.append('Field Password cannot be Empty.')
+        if confirm_password == '':
+            error_msg.append('Field Confirm Password cannot be Empty.')
 
-        if not all([name, mobile, email, password, confirm_password]):
-            errors.append('All fields are required.')
+        try:
+            validate_email(email)
+        except ValidationError as e:
+            error_msg.append('Invalid Email Provided')
+        else:
+            pass
+
+        if len(mobile) != 10:
+            error_msg.append('Mobile number must be 10 character in length.')
 
         if password != confirm_password:
-            errors.append('Password and Confirm Password do not match')
+            error_msg.append('Password donot match confirm password.') 
 
-        if errors:
-            for error in errors:
-                messages.error(request, error)
-            return redirect('user_registration')
 
-        # Proceed with successful registration
-        messages.success(request, 'Registration successful!')
-        return redirect('home')
+        if(len(error_msg) == 0):
+            response_data['status'] = 'success'
+            response_data['message'] = ['User Registered Successfully.']
+            response_data['data'] = []
+        else:
+            response_data['status'] = 'error'
+            response_data['message'] = error_msg
+            response_data['data'] = request.POST
 
-    return render(request, 'user_registration.html')
+        return render(request,'user_registration.html',response_data)
+    
+
+
+        
+    else:
+        response_data = {
+            'status':'success',
+            'message':['asd','ssss'],
+            'data':'test'
+        }
+        return render(request, 'user_registration.html',response_data)
         
 
 
