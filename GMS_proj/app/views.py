@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-
-
+from django.contrib.auth.hashers import make_password
+from .models import UserRegistration
 
 def index(request):
     return render(request, 'index.html')
@@ -76,6 +76,14 @@ def user_registration(request):
             response_data['status'] = 'success'
             response_data['message'] = ['User Registered Successfully.']
             response_data['data'] = []
+            hashed_password=make_password(password)
+            user=UserRegistration.objects.create(
+                name=name,
+                mobile=mobile,
+                email=email,
+                password=hashed_password,
+            )
+            
         else:
             response_data['status'] = 'error'
             response_data['message'] = error_msg

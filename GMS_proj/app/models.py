@@ -83,11 +83,10 @@ class ProfileType(models.Model):
 
 class UserRegistration(models.Model):
     name = models.CharField(max_length=50)
-    mobile = models.IntegerField()
+    mobile = models.CharField(max_length=10)
     email = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    confirm_password = models.CharField(max_length=50)
-
+    password = models.CharField(max_length=128)
+    
     class Meta:
         managed = True
         db_table = 'user_registration'

@@ -8,7 +8,7 @@
         <div class="card-body">
           <h2 class="display-6 text-center mb-4">User Registration</h2>
           
-          <form id="registration_form_id" action="{% url 'user_registration' %}" method="post" >
+          <form id="registration_form_id" action="{% url 'user_registration' %}" method="post" novalidate>
             {% csrf_token %}
             <div class="mb-3">
               <input type="text" class="form-control" id="name" name="name" placeholder="Name" required />
@@ -26,18 +26,20 @@
           <div class="mb-3">
               <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" />
           </div>
-          {% if request.method == 'POST'  %}
+            <button type="submit" id ="registration_button_id" class="btn btn-primary w-100">Submit</button>
+           <p class="text-center"> Already have an account? <a href="{%url 'login' %}">Login</a></p>
+            <hr>
+            {% if request.method == 'POST'  %}
             <ul class="messages">
               {% for info in message %}
+              {%if "User Registered Successfully." in info%}
+              <li class="text-success">{{ info }}</li>
+              {% else %}
               <li class="text-danger">{{ info }}</li>
-              
+              {% endif %}
               {% endfor %}
             </ul>
             {% endif %}
-          
-           <h5>{{name}}</h5>
-
-            <button type="submit" id ="registration_button_id" class="btn btn-primary w-100">Submit</button>
           </form>
         </div>
       </div>
