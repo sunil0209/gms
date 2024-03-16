@@ -8,27 +8,25 @@
         <div class="card-body">
           <h2 class="display-6 text-center mb-4">User Registration</h2>
           
-          <form id="registration_form_id" action="{% url 'user_registration' %}" method="post" >
-            {% csrf_token %}
+          <form id="registration_form_id" action="{% url 'profile_original' %}" method="post" >
+          {% csrf_token %}
             <div class="mb-3">
-              <input type="text" class="form-control" id="name" name="name" placeholder="Name" required />
+              <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ data.name }}" required />
           </div>
           <div class="mb-3">
-              <input type="tel" class="form-control" id="phone_no" name="mobile" placeholder = "Mobile No" required/>
+              <input type="tel" class="form-control" id="phone_no" name="mobile" placeholder = "Mobile No" value="{{ data.mobile }}" required/>
           </div>
           <div class="mb-3">
-              <input type="email" class="form-control" id="email" name="email" placeholder="Email" />
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ data.email }}" required>
           </div>
           <div class="mb-3 ">
-            <input type="password" class="form-control" id="password"  name="password" placeholder="Password" data-toggle="tooltip" data-placement="top" title="At least a  lowecase, uppercase, number, minimmum 8 character" required>
+            <input type="password" class="form-control" id="password"  name="password" placeholder="Password" data-toggle="tooltip" data-placement="top" title="At least a  lowercase, uppercase, number, minimum 8 character" value="{{ data.password }}" required>
 
           </div>
           <div class="mb-3">
-              <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" />
+              <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" value="{{ data.confirm_password }}">
           </div>
             <button type="submit" id ="registration_button_id" class="btn btn-primary w-100">Submit</button>
-           <p class="text-center"> Already have an account? <a href="{%url 'login' %}">Login</a></p>
-            <hr>
             {% if request.method == 'POST'  %}
             <ul class="messages">
               {% for info in message %}
@@ -40,6 +38,8 @@
               {% endfor %}
             </ul>
             {% endif %}
+            <hr>
+            <p class="text-center"> Already have an account? <a href="{%url 'login' %}">Login</a></p>
           </form>
         </div>
       </div>

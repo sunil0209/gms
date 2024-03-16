@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.hashers import make_password 
-from .models import UserRegistration
+from .models import Profile
 from django.contrib.auth import login
 
 
@@ -96,7 +96,7 @@ def forgot_password(request):
     return render(request, 'forgot_password.html')
 
 
-def user_registration(request):
+def profile_original(request):
     if request.method == 'POST':
 
         name = request.POST.get('name','')
@@ -145,7 +145,7 @@ def user_registration(request):
             response_data['message'] = ['User Registered Successfully.']
             response_data['data'] = []
             hashed_password=make_password(password)
-            user=UserRegistration.objects.create(
+            user=Profile.objects.create(
                 name=name,
                 mobile=mobile,
                 email=email,
@@ -156,19 +156,9 @@ def user_registration(request):
             response_data['status'] = 'error'
             response_data['message'] = error_msg
             response_data['data'] = request.POST
+           
 
-        return render(request,'user_registration.html',response_data)
-
-
-
-        
+        return render(request,'profile_original.html',response_data)
     else:
-      
-       
-        return render(request, 'user_registration.html')
+        return render(request, 'profile_original.html')
         
-
-
-
-
- 

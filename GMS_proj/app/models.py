@@ -7,7 +7,6 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-
 class ComplaintMessage(models.Model):
     profile_id = models.IntegerField()
     message = models.CharField(max_length=255)
@@ -58,16 +57,16 @@ class Designation(models.Model):
 
 
 class Profile(models.Model):
-    name = models.CharField(max_length=27)
-    mobile = models.IntegerField()
-    email = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    mobile = models.CharField(max_length=10)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=128)
     profile_type_id = models.IntegerField()
     designation_id = models.IntegerField()
     department_id = models.IntegerField()
     created_at = models.DateField()
     updated_at = models.DateField()
-
     class Meta:
         managed = True
         db_table = 'profile'
