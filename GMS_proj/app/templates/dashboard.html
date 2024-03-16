@@ -1,0 +1,26 @@
+
+{% extends 'index.html' %}
+   {% block content %}
+    {% load static %}
+    {{ request.user }}
+    
+<h1>Dashboard<h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <table>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

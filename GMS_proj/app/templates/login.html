@@ -7,9 +7,21 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="display-6 text-center mb-4">Login</h2>
-                        <form class="row g-3 needs-validation" novalidate>
+                      
+
+                        {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                        <form class="row g-3 needs-validation" method="POST" action="{% url 'login' %}">
+                            {% csrf_token %}
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Username" required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Username" required>
                                 <div class="invalid-feedback">
                                     Please enter a valid username.
                                 </div>
@@ -20,16 +32,20 @@
                                     Please enter a valid password.
                                 </div>
                             </div>
-                            <div class="mb-3  forgot-password">
+                            <div class="mb-3 forgot-password">
                                 <a href="{% url 'forgot_password' %}" class="text-danger">
-                                    <i class="fa-solid fa-lock"></i><span class="p-2">Forgot Password ?</span></a>
+                                    <i class="fa-solid fa-lock"></i><span class="p-2">Forgot Password ?</span>
+                                </a>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
+                        
                     </div>
+                    <p class="text-center ">Don't have an account? <a href="{% url 'user_registration' %}" class="text-warning">  Register </p>
+
                 </div>
+
             </div>
-            <p class="text-center ">Don't have an account? <a href="{% url 'user_registration' %}" class="text-warning">  Register </p>
         </div>
     </div>
 {% endblock %}

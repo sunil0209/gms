@@ -2,11 +2,23 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password 
 from .models import UserRegistration
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 
 
+from django.contrib.auth.models import User
+
+
+from django.contrib import messages
+
+from django.contrib.auth import authenticate
+from .models import UserRegistration
+
+# def list_all_user(request):
+    
+    
+#     return render(request, 'index.html')
 
 
 def index(request):
@@ -14,23 +26,55 @@ def index(request):
 def view_all_complaint_admin(request):
     return render(request, 'view_all_complaint_admin.html')
 
-def login(request):
+def login_page(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        name = request.POST.get('name')
         password = request.POST.get('password')
-
-        # Authenticate user
-        user = authenticate(request, email=email, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('index.html')  # Redirect to home page after successful login
+        UserRegistration = authenticate(request, name=name, password=password)
+        if UserRegistration is not None:  # Corrected variable name from 'User' to 'user'
+            login(request, User)
+            return redirect('dashboard')  # Redirect to dashboard on successful login
         else:
-            # Authentication failed
-            return render(request, 'login.html', {'error_message': 'Invalid email or password'})
-    else:
-        return render(request,'login.html')
-    
+            print("error")
+            messages.error(request, 'Invalid username or password')
+            return redirect('login')  # Redirect to login page if authentication fails
+    return render(request, 'login.html')
+    # if request.method == 'POST':
+    #     email = request.POST.get('email')
+    #     password = request.POST.get('password')
+
+    #     if  not User.objects.filter(email = email ).exists():
+    #         messages.error(request,"invalid username")
+            
+        
+    #     user = authenticate(email = email, password = password)
+
+    #     if user is None:
+    #         messages.error (request,'Invalid Password')
+    #         return redirect('login')
+    #     else:
+    #         login(request,user)
+    #         return redirect('dashboard')
+    # return render(request, 'login.html')
+        
+
+
+    # if request.method == 'POST':
+    #     form = AuthenticationForm(data=request.POST)
+    #     if form.is_valid():
+    #         user = form.get_user()
+    #         login(request, user)
+    #         return redirect('dashboard')  # Redirect to home page after successful login
+    # else:
+    #     form = AuthenticationForm()
+    # return render(request, 'login.html', {'form': form})
+
+def dashboard(request):
+    User = UserRegistration.objects.all()
+    return render(request, 'dashboard.html', {'users': User})
+   
+   
+  
 def view_complaint_reply_user(request):
     return render(request, 'view_complaint_reply_user.html')
 def emp_profile_admin(request):
@@ -45,6 +89,7 @@ def profile(request):
     return render(request, 'profile.html')
 
 def home(request):
+    
     return render(request, 'home.html')
 
 def forgot_password(request):
