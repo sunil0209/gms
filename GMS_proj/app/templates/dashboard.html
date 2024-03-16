@@ -13,12 +13,13 @@
                 <th>Email</th>
             </tr>
         </thead>
-        <table>
-        <tbody>
+        <table style="font-size:22px;">
+        <tbody style="border:2px solid black;">
             {% for user in users %}
                 <tr>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
+                    <td style="border:2px solid black;">{{ user.name }}</td>
+                    <td  style="border:2px solid black;">{{ user.email }}</td>
+                    <td  style="border:2px solid black;">{{ user.password}}</td>
                 </tr>
             {% endfor %}
         </tbody>
