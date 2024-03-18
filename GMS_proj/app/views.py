@@ -5,9 +5,6 @@ from django.core.validators import validate_email
 from django.contrib.auth.hashers import make_password,check_password
 from .models import Profile
 from django.contrib.auth import login
-
-
-
 from django.contrib import messages
 
 from django.contrib.auth import authenticate
@@ -65,17 +62,12 @@ def login_page(request):
         password = request.POST.get('password')
         
         # Hash the provided password
-        hashed_password = make_password(password)
-        if Profile.objects.filter(email=email).exists():
-            user = Profile.objects.get(email=email)
+        user = Profile.objects.get(email=email)
+        if Profile.objects.filter(email=email).exists() and check_password(password, user.password):
+           
             # Check if the provided password matches the hashed password
-            if check_password(password, user.password):
                 # Both email exists and password matches, redirect to dashboard
-                return redirect("dashboard")  # Replace 'dashboard' with the URL name of your dashboard
-            else:
-                # Password doesn't match
-                response_data['status'] = 'error'
-                response_data['message'] = ['Incorrect Password']
+            return redirect("dashboard")  # Replace 'dashboard' with the URL name of your dashboard
         else:
             # User with given email doesn't exist
             response_data['status'] = 'error'
