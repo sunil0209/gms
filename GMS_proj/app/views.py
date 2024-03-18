@@ -2,12 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from django.contrib.auth.hashers import make_password 
+from django.contrib.auth.hashers import make_password,get_hasher
 from .models import Profile
 from django.contrib.auth import login
 
-
-from django.contrib.auth.models import User
 
 
 from django.contrib import messages
@@ -27,47 +25,41 @@ def view_all_complaint_admin(request):
     return render(request, 'view_all_complaint_admin.html')
 
 def login_page(request):
+    response_data = {
+            'status':'',
+            'message':[],
+            'data':''
+        }
     if request.method == 'POST':
+
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(request, username=email, password=password)
-        if user is not None:  # Corrected variable name from 'User' to 'user'
-            login(request, user)
-            return redirect('dashboard')  # Redirect to dashboard on successful login
+       
+        hashed_pswd = hashed_password=make_password(password)
+        
+        
+        if Profile.objects.filter(email= email).exists():
+            profile = Profile.objects.get(email=email)
+            if profile.password == hashed_pswd:
+                response_data['status'] = 'success'
+                response_data['message'] = ['Valid Credentials Provided']
+                response_data['data'] = request.POST
+            else:
+                response_data['status'] = 'error'
+                response_data['message'] = ['Incorrect Password']
+                response_data['data'] = [profile.password,hashed_pswd]
         else:
-            print("error")
-            messages.error(request, 'Invalid username or password')
-            return redirect('login')  # Redirect to login page if authentication fails
-    return render(request, 'login.html')
-    # if request.method == 'POST':
-    #     email = request.POST.get('email')
-    #     password = request.POST.get('password')
+            response_data['status'] = 'error'
+            response_data['message'] = ['Invalid Credentials Provided 1']
+            response_data['data'] = request.POST
+        
+            
 
-    #     if  not User.objects.filter(email = email ).exists():
-    #         messages.error(request,"invalid username")
             
         
-    #     user = authenticate(email = email, password = password)
-
-    #     if user is None:
-    #         messages.error (request,'Invalid Password')
-    #         return redirect('login')
-    #     else:
-    #         login(request,user)
-    #         return redirect('dashboard')
-    # return render(request, 'login.html')
         
-
-
-    # if request.method == 'POST':
-    #     form = AuthenticationForm(data=request.POST)
-    #     if form.is_valid():
-    #         user = form.get_user()
-    #         login(request, user)
-    #         return redirect('dashboard')  # Redirect to home page after successful login
-    # else:
-    #     form = AuthenticationForm()
-    # return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html',response_data)
+  
 
 def dashboard(request):
     User = Profile.objects.all()
