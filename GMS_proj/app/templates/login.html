@@ -21,9 +21,9 @@
                         <form class="row g-3 needs-validation" method="POST" action="{% url 'login' %}">
                             {% csrf_token %}
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Username" required>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                                 <div class="invalid-feedback">
-                                    Please enter a valid username.
+                                    Please enter a valid email.
                                 </div>
                             </div>
                             <div class="mb-3">

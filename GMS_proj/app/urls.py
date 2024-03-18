@@ -13,6 +13,6 @@ urlpatterns = [
     path('complaint_user/', views.complaint_user, name='complaint_user'),
     path('user_registration/', views.profile_original, name='profile_original'),
     path('profile/', views.profile, name='profile'),
-    path('forgot_password',views.forgot_password, name='forgot_password'),
-    path('dashboard',views.dashboard, name='dashboard'),
+    path('forgot_password/',views.forgot_password, name='forgot_password'),
+    path('dashboard/',views.dashboard, name='dashboard'),
 ]

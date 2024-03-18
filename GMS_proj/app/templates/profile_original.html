@@ -29,13 +29,20 @@
             <button type="submit" id ="registration_button_id" class="btn btn-primary w-100">Submit</button>
             {% if request.method == 'POST'  %}
             <ul class="messages">
-              {% for info in message %}
+              {% for info in message%}
               {%if "User Registered Successfully." in info%}
               <li class="text-success">{{ info }}</li>
               {% else %}
               <li class="text-danger">{{ info }}</li>
               {% endif %}
               {% endfor %}
+              
+              {% comment %} {% if "User Registered Successfully." in error_message%}
+              <li class="text-success">{{ error_message }}</li>
+              {% else %}
+              <li class="text-danger">{{ error_message }}</li>
+              {% endif %} {% endcomment %}
+
             </ul>
             {% endif %}
             <hr>

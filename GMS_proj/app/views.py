@@ -28,11 +28,11 @@ def view_all_complaint_admin(request):
 
 def login_page(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-        UserRegistration = authenticate(request, name=name, password=password)
-        if UserRegistration is not None:  # Corrected variable name from 'User' to 'user'
-            login(request, User)
+        user = authenticate(request, username=email, password=password)
+        if user is not None:  # Corrected variable name from 'User' to 'user'
+            login(request, user)
             return redirect('dashboard')  # Redirect to dashboard on successful login
         else:
             print("error")
@@ -70,7 +70,7 @@ def login_page(request):
     # return render(request, 'login.html', {'form': form})
 
 def dashboard(request):
-    User = UserRegistration.objects.all()
+    User = Profile.objects.all()
     return render(request, 'dashboard.html', {'users': User})
    
    
@@ -139,19 +139,16 @@ def profile_original(request):
         if password != confirm_password:
             error_msg.append('Password donot match confirm password.') 
 
-
+        if Profile.objects.filter(email=email).exists():
+                error_msg.append('Email already exists. Please use a different email address.')
+                
         if(len(error_msg) == 0):
             response_data['status'] = 'success'
             response_data['message'] = ['User Registered Successfully.']
             response_data['data'] = []
             hashed_password=make_password(password)
-            user=Profile.objects.create(
-                name=name,
-                mobile=mobile,
-                email=email,
-                password=hashed_password,
-            )
-            
+            # If the email doesn't exist, create a new Profile object
+            user = Profile.objects.create(name=name, mobile=mobile, email=email, password=hashed_password)
         else:
             response_data['status'] = 'error'
             response_data['message'] = error_msg
