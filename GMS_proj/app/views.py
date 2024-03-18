@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from django.contrib.auth.hashers import make_password,get_hasher
+from django.contrib.auth.hashers import make_password,check_password
 from .models import Profile
 from django.contrib.auth import login
 
@@ -23,36 +23,78 @@ def index(request):
     return render(request, 'index.html')
 def view_all_complaint_admin(request):
     return render(request, 'view_all_complaint_admin.html')
+#login logic by sir
+# def login_page(request):
+#     response_data = {
+#             'status':'',
+#             'message':[],
+#             'data':''
+#         }
+#     if request.method == 'POST':
+
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+       
+#         hashed_pswd = hashed_password=make_password(password)
+        
+        
+#         if Profile.objects.filter(email= email).exists():
+#             profile = Profile.objects.get(email=email)
+#             if profile.password == hashed_pswd:
+#                 response_data['status'] = 'success'
+#                 response_data['message'] = ['Valid Credentials Provided']
+#                 response_data['data'] = request.POST
+#             else:
+#                 response_data['status'] = 'error'
+#                 response_data['message'] = ['Incorrect Password']
+#                 response_data['data'] = [profile.password,hashed_pswd]
+#         else:
+#             response_data['status'] = 'error'
+#             response_data['message'] = ['Invalid Credentials Provided 1']
+#             response_data['data'] = request.POST
 
 def login_page(request):
     response_data = {
-            'status':'',
-            'message':[],
-            'data':''
-        }
+        'status': '',
+        'message': [],
+        'data': ''
+    }
+    
     if request.method == 'POST':
-
         email = request.POST.get('email')
         password = request.POST.get('password')
-       
-        hashed_pswd = hashed_password=make_password(password)
         
-        
-        if Profile.objects.filter(email= email).exists():
-            profile = Profile.objects.get(email=email)
-            if profile.password == hashed_pswd:
-                response_data['status'] = 'success'
-                response_data['message'] = ['Valid Credentials Provided']
-                response_data['data'] = request.POST
+        # Hash the provided password
+        hashed_password = make_password(password)
+        if Profile.objects.filter(email=email).exists():
+            user = Profile.objects.get(email=email)
+            # Check if the provided password matches the hashed password
+            if check_password(password, user.password):
+                # Both email exists and password matches, redirect to dashboard
+                return redirect("dashboard")  # Replace 'dashboard' with the URL name of your dashboard
             else:
+                # Password doesn't match
                 response_data['status'] = 'error'
                 response_data['message'] = ['Incorrect Password']
-                response_data['data'] = [profile.password,hashed_pswd]
         else:
+            # User with given email doesn't exist
             response_data['status'] = 'error'
-            response_data['message'] = ['Invalid Credentials Provided 1']
-            response_data['data'] = request.POST
-        
+            response_data['message'] = ['Invalid Credentials Provided']
+            # user = Profile.objects.get(email=email)
+            # # Check if the provided password matches the hashed password
+            # if check_password(password,hashed_password):
+            #     response_data['status'] = 'success'
+            #     response_data['message'] = ['Valid Credentials Provided']
+            #     response_data['data'] = request.POST
+            #     return redirect("dashboard")
+            # else:
+            #     response_data['status'] = 'error'
+            #     response_data['message'] = ['Incorrect Password']
+            #     response_data['data'] = [password, hashed_password]
+        # else:
+        #     response_data['status'] = 'error'
+        #     response_data['message'] = ['Invalid Credentials Provided']
+        #     response_data['data'] = request.POST
             
 
             
