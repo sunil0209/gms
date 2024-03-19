@@ -67,6 +67,7 @@ class Profile(models.Model):
     department_id = models.IntegerField()
     created_at = models.DateField()
     updated_at = models.DateField()
+    last_login = models.DateTimeField(blank=True, null=True)
     class Meta:
         managed = True
         db_table = 'profile'
