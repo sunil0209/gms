@@ -4,9 +4,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.hashers import make_password,check_password
 from .models import Profile
-from django.contrib.auth import login
-from django.contrib import messages
-from .models import UserRegistration
+
+
+from .middleware import auth
 
 # def list_all_user(request):
     
@@ -46,8 +46,11 @@ def view_all_complaint_admin(request):
 #         else:
 #             response_data['status'] = 'error'
 #             response_data['message'] = ['Invalid Credentials Provided 1']
-#             response_data['data'] = request.POST
-def login_page(request):
+#   
+#           response_data['data'] = request.POST
+
+
+def login_page(request ,response_data = None):
     response_data = {
         'status': '',
         'message': [],
@@ -57,9 +60,11 @@ def login_page(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
+        
         try:
             user = Profile.objects.get(email=email)
             if Profile.objects.filter(email=email).exists() and check_password(password, user.password):
+                response_data['data']= True
                 # Check if the provided password matches the hashed password
                 # Both email exists and password matches, redirect to dashboard
                 return redirect("dashboard")  # Replace 'dashboard' with the URL name of your dashboard
@@ -70,8 +75,8 @@ def login_page(request):
         except Profile.DoesNotExist:
                 response_data['status'] = 'error'
                 response_data['message'] = ['Invalid Credentials Provided']
-    return render(request, 'login.html',response_data)
-  
+    return render(request, 'login.html',response_data =response_data)
+@auth
 def dashboard(request):
     User = Profile.objects.all()
     return render(request, 'dashboard.html', {'users': User})
@@ -97,6 +102,8 @@ def home(request):
 
 def forgot_password(request):
     return render(request, 'forgot_password.html')
+
+
 def profile_original(request):
     if request.method == 'POST':
 
