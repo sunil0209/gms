@@ -49,13 +49,16 @@ def view_all_complaint_admin(request):
 #   
 #           response_data['data'] = request.POST
 
-
-def login_page(request ,response_data = None):
-    response_data = {
-        'status': '',
-        'message': [],
-        'data': ''
-    }
+def login_page(request, response_data=None):
+    if response_data is None:
+        response_data = {
+            'status': '',
+            'message': [],
+            'data': '',
+            'is_logged_in': request.session.get('is_logged_in', False),
+            'email_id': request.session.get('email_id', None),
+            'profile_id': request.session.get('profile_id', None)
+        }
     
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -67,7 +70,7 @@ def login_page(request ,response_data = None):
                 request.session['is_logged_in'] = True
                 request.session['email_id'] = user.email
                 request.session['profile_id'] = user.id
-                request.session.save()
+                
                 # Check if the provided password matches the hashed password
                 # Both email exists and password matches, redirect to dashboard
                 return redirect("dashboard")  # Replace 'dashboard' with the URL name of your dashboard
@@ -82,7 +85,7 @@ def login_page(request ,response_data = None):
                 response_data['message'] = ['Invalid Credentials Provided']
                 response_data['data'] = request.POST
 
-    return render(request, 'login.html',response_data)
+    return render(request, 'login.html', response_data)
 @auth
 def dashboard(request):
     User = Profile.objects.all()
@@ -104,6 +107,9 @@ def profile(request):
 def home(request):
     
     return render(request, 'home.html')
+# def logout_user(request):
+#     logout(request)
+
 
 def forgot_password(request):
     return render(request, 'forgot_password.html')

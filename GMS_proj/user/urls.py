@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
-from app import views
+from user import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('view_all_complaint_admin/', views.view_all_complaint_admin, name='view_all_complaint_admin'),
