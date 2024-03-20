@@ -64,25 +64,30 @@ def login_page(request ,response_data = None):
         try:
             user = Profile.objects.get(email=email)
             if Profile.objects.filter(email=email).exists() and check_password(password, user.password):
-                response_data['data']= True
+                request.session['is_logged_in'] = True
+                request.session['email_id'] = user.email
+                request.session['profile_id'] = user.id
+                request.session.save()
                 # Check if the provided password matches the hashed password
                 # Both email exists and password matches, redirect to dashboard
                 return redirect("dashboard")  # Replace 'dashboard' with the URL name of your dashboard
             else:
                 # User with given email doesn't exist
+                request.session['is_logged_in'] = False
                 response_data['status'] = 'error'
                 response_data['message'] = ['Invalid Credentials Provided']
         except Profile.DoesNotExist:
+                request.session['is_logged_in'] = False
                 response_data['status'] = 'error'
                 response_data['message'] = ['Invalid Credentials Provided']
-    return render(request, 'login.html',response_data =response_data)
+                response_data['data'] = request.POST
+
+    return render(request, 'login.html',response_data)
 @auth
 def dashboard(request):
     User = Profile.objects.all()
     return render(request, 'dashboard.html', {'users': User})
-   
-   
-  
+
 def view_complaint_reply_user(request):
     return render(request, 'view_complaint_reply_user.html')
 def emp_profile_admin(request):
@@ -104,7 +109,7 @@ def forgot_password(request):
     return render(request, 'forgot_password.html')
 
 
-def profile_original(request):
+def user_registration(request):
     if request.method == 'POST':
 
         name = request.POST.get('name','')
@@ -163,7 +168,7 @@ def profile_original(request):
             response_data['data'] = request.POST
            
 
-        return render(request,'profile_original.html',response_data)
+        return render(request,'user_registration.html',response_data)
     else:
-        return render(request, 'profile_original.html')
+        return render(request, 'user_registration.html')
         

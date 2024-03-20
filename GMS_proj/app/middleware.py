@@ -25,10 +25,12 @@
 from django.shortcuts import render,redirect
 
 
+
 def auth(view_function):
     def wrapped_view(request, *args, **kwargs):
-        response_data = kwargs.get('response_data')
-        if request.user.response_data == False:
+        request.session
+        if request.session['is_logged_in'] == False:
             return redirect('login')
         return view_function(request, *args, **kwargs)
     return wrapped_view
+

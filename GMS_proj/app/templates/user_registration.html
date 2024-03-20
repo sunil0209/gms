@@ -8,7 +8,7 @@
         <div class="card-body">
           <h2 class="display-6 text-center mb-4">User Registration</h2>
           
-          <form id="registration_form_id" action="{% url 'profile_original' %}" method="post" >
+          <form id="registration_form_id" action="{% url 'user_registration' %}" method="post" >
           {% csrf_token %}
             <div class="mb-3">
               <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ data.name }}" required />
