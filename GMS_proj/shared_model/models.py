@@ -17,14 +17,14 @@ class ComplaintMessage(models.Model):
     class Meta:
         managed = True
         db_table = 'complaint_message'
-
-
+        app_label = 'shared_model'
 class ComplaintStatus(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
         managed = True
         db_table = 'complaint_status'
+        app_label = 'shared_model'
 
 
 class CreateComplaint(models.Model):
@@ -38,6 +38,7 @@ class CreateComplaint(models.Model):
     class Meta:
         managed = True
         db_table = 'create_complaint'
+        app_label = 'shared_model'
 
 
 class Department(models.Model):
@@ -46,6 +47,7 @@ class Department(models.Model):
     class Meta:
         managed = True
         db_table = 'department'
+        app_label = 'shared_model'
 
 
 class Designation(models.Model):
@@ -54,6 +56,7 @@ class Designation(models.Model):
     class Meta:
         managed = True
         db_table = 'designation'
+        app_label = 'shared_model'
 
 
 class Profile(models.Model):
@@ -71,6 +74,7 @@ class Profile(models.Model):
     class Meta:
         managed = True
         db_table = 'profile'
+        app_label = 'shared_model'
 
 
 class ProfileType(models.Model):
@@ -79,6 +83,7 @@ class ProfileType(models.Model):
     class Meta:
         managed = True
         db_table = 'profile_type'
+        app_label = 'shared_model'
 
 
 class UserRegistration(models.Model):
@@ -90,3 +95,16 @@ class UserRegistration(models.Model):
     class Meta:
         managed = True
         db_table = 'user_registration'
+        app_label = 'shared_model'
+
+
+class AdminRegistration(models.Model):
+    name = models.CharField(max_length=50)
+    mobile = models.CharField(max_length=10)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=128)
+    
+    class Meta:
+        managed = True
+        db_table = 'admin_registration'
+        app_label = 'shared_model'
