@@ -28,9 +28,21 @@ from django.shortcuts import render,redirect
 
 def auth(view_function):
     def wrapped_view(request, *args, **kwargs):
-    
-        if request.session['is_logged_in'] == False:
-            return redirect('login')
+        if 'is_logged_in' not in request.session:
+              request.session['is_logged_in'] = False
+              return redirect('login')
+        
+        return view_function(request, *args, **kwargs)
+    return wrapped_view
+
+def login_checker(view_function):
+    def wrapped_view(request, *args, **kwargs):
+        print('case 1')
+        if 'is_logged_in' in request.session:
+            if request.session['is_logged_in'] == True :
+                return redirect('dashboard')
+            
+      
         return view_function(request, *args, **kwargs)
     return wrapped_view
 
