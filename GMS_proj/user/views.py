@@ -23,36 +23,7 @@ def index(request):
     return render(request, 'index.html')
 def view_all_complaint_admin(request):
     return render(request, 'view_all_complaint_admin.html')
-#login logic by sir
-# def login_page(request):
-#     response_data = {
-#             'status':'',
-#             'message':[],
-#             'data':''
-#         }
-#     if request.method == 'POST':
 
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-       
-#         hashed_pswd = hashed_password=make_password(password)
-        
-        
-#         if Profile.objects.filter(email= email).exists():
-#             profile = Profile.objects.get(email=email)
-#             if profile.password == hashed_pswd:
-#                 response_data['status'] = 'success'
-#                 response_data['message'] = ['Valid Credentials Provided']
-#                 response_data['data'] = request.POST
-#             else:
-#                 response_data['status'] = 'error'
-#                 response_data['message'] = ['Incorrect Password']
-#                 response_data['data'] = [profile.password,hashed_pswd]
-#         else:
-#             response_data['status'] = 'error'
-#             response_data['message'] = ['Invalid Credentials Provided 1']
-#   
-#           response_data['data'] = request.POST
 @login_checker 
 def login_page(request ,response_data=None):
     response_data = {
@@ -86,38 +57,6 @@ def login_page(request ,response_data=None):
 
     return render(request, 'login.html', response_data)
 
-    #         'is_logged_in': request.session.get('is_logged_in', False),
-    #         'email_id': request.session.get('email_id', None),
-    #         'profile_id': request.session.get('profile_id', None)
-    #     }
-        
-    
-    # if request.method == 'POST':
-    #     email = request.POST.get('email')
-    #     password = request.POST.get('password')
-        
-    #     try:
-    #         user = Profile.objects.get(email=email)
-    #         if Profile.objects.filter(email=email).exists() and check_password(password, user.password):
-    #             request.session['is_logged_in'] = True
-    #             request.session['email_id'] = user.email
-    #             request.session['profile_id'] = user.id
-                
-    #             # Check if the provided password matches the hashed password
-    #             # Both email exists and password matches, redirect to dashboard
-    #             return redirect("dashboard")  # Replace 'dashboard' with the URL name of your dashboard
-    #         else:
-    #             # User with given email doesn't exist
-    #             request.session['is_logged_in'] = False
-    #             response_data['status'] = 'error'
-    #             response_data['message'] = ['Invalid Credentials Provided']
-    #     except Profile.DoesNotExist:
-    #             request.session['is_logged_in'] = False
-    #             response_data['status'] = 'error'
-    #             response_data['message'] = ['Invalid Credentials Provided']
-    #             response_data['data'] = request.POST
-
-    # return render(request, 'login.html', print(response_data))
 @auth
 def dashboard(request):
     User = Profile.objects.all()

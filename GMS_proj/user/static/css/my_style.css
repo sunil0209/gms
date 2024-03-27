@@ -85,6 +85,15 @@ body {
     border-radius: 5px;
     padding: 8px 5px;
 }
+/* logout button----------------- */
+.mynav li  {
+    color: #fff;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+    padding: 8px 5px;
+}
 
 .mynav li a.active {
     background: rgba(255, 255, 255, 0.2);
@@ -98,6 +107,7 @@ body {
     width: 25px;
     text-align: center;
 }
+
 
 .notification-badge {
     background-color: rgba(255, 255, 255, 0.7);

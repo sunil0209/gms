@@ -31,9 +31,9 @@
             <hr>
             <ul class="mynav nav nav-pills flex-column mb-auto">
                 <li class="nav-item mb-1">
-                    <a href="#">
+                    <a href="{% url 'dashboard' %}">
                         <i class="fa-regular fa-newspaper"></i>
-                        Home
+                        Dashboard
                     </a>
                 </li>
                 <li class="nav-item  mb-1">
@@ -43,29 +43,8 @@
                         <span class="notification-badge"></span>
                     </a>
                 </li>
-                
-{{is_logged_in}}
-{{request.session.is_logged_in}}
-                {% if request.session.is_logged_in  %}
-                
-                <!-- Code to execute if the condition is true -->
-                 <li class="nav-item  mb-1">
-                    <a href="{% url 'logout_view' %}">
-                        <i class="fa-regular fa-bookmark"></i>
-                       Logout
-                        <span class="notification-badge"></span>
-                    </a>
-                </li> 
-                {% else %} 
-                <!-- Code to execute if the condition is false -->
-                <li class="nav-item  mb-1">
-                    <a href="{% url 'login' %}">
-                        <i class="fa-regular fa-bookmark"></i>
-                        Login
-                        <span class="notification-badge"></span>
-                    </a>
-                </li>
-     {% endif %} 
+               {{request.session.is_logged_in}} 
+         
                 <li class="sidebar-item"> 
                     <a href="{% url 'complaint_user' %}" class="sidebar-link"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
@@ -79,7 +58,7 @@
                     </a> 
                 <!--Admin Section---------------------->
                 <hr>
-                <li class="nav-item mb-1"> 
+                {% comment %} <li class="nav-item mb-1"> 
                     <a href="#"
                     class="sidebar-link collapsed"
                     data-bs-toggle="collapse"
@@ -89,6 +68,7 @@
                         <i class="fas fa-cog pe-2"></i> 
                         <span class="topic">Admin </span> 
                     </a> 
+                </li> {% endcomment %}
                     <ul id="settings"
                         class="sidebar-dropdown list-unstyled collapse"
                         data-bs-parent="#sidebar"> 
@@ -142,6 +122,34 @@
             </ul>
             
             <hr>
+            <!--Bottom nav-->
+            <div  class="mynav nav text-white ">
+                
+                {% if request.session.is_logged_in  %}
+
+            <ul class="mynav nav nav-pills flex-column mb-auto">
+                 <li class="nav-item  mb-1">
+                    <a href="{% url 'logout_view' %}">
+                        <i class="fa-regular fa-bookmark"></i>
+                       Logout
+                       
+                    </a>
+                </li> 
+            </ul>
+                
+                {% else %} 
+                
+            <ul class="mynav nav nav-pills flex-column mb-auto">
+                <li class="nav-item  mb-1">
+                    <a href="{% url 'login' %}">
+                        <i class="fa-regular fa-bookmark"></i>
+                        Login
+                        <span class="notification-badge"></span>
+                    </a>
+                </li>
+            </ul>
+     {% endif %} 
+            </div>
 
         </div>
 
