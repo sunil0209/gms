@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.hashers import make_password,check_password
 from shared_model.models import Profile
-from .middleware import auth, login_checker
+from user.middleware import auth, login_checker
 
 def logout_view(request):
     # Clear session data
@@ -80,7 +80,7 @@ def forgot_password(request):
     return render(request, 'forgot_password.html')
 
 
-def user_registration(request):
+def admin_registration(request):
     if request.method == 'POST':
 
         name = request.POST.get('name','')
@@ -139,7 +139,7 @@ def user_registration(request):
             response_data['data'] = request.POST
            
 
-        return render(request,'user_registration.html',response_data)
+        return render(request,'admin_registration.html',response_data)
     else:
-        return render(request, 'user_registration.html')
+        return render(request, 'admin_registration.html')
         
