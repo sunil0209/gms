@@ -10,7 +10,7 @@ def logout_view(request):
     # Clear session data
     request.session.clear()
     # Redirect to the login page or any other desired page
-    return redirect('login') 
+    return redirect('user:login') 
 
 def index(request):
     return render(request, 'index.html')
@@ -36,7 +36,7 @@ def login_page(request ,response_data=None):
                 request.session['profile_id'] = user.id
                 # Check if the provided password matches the hashed password
                 # Both email exists and password matches, redirect to dashboard
-                return redirect("dashboard") 
+                return redirect("user:dashboard") 
             else:
                 # User with given email doesn't exist
                 request.session['is_logged_in'] = False
