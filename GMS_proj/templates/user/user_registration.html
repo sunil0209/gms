@@ -8,7 +8,7 @@
         <div class="card-body">
           <h2 class="display-6 text-center mb-4">User Registration</h2>
           
-          <form id="registration_form_id" action="{% url 'user_registration' %}" method="post" >
+          <form id="registration_form_id" action="{% url 'user:user_registration' %}" method="post" >
           {% csrf_token %}
             <div class="mb-3">
               <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ data.name }}" required />
@@ -46,7 +46,7 @@
             </ul>
             {% endif %}
             <hr>
-            <p class="text-center"> Already have an account? <a href="{%url 'login' %}">Login</a></p>
+            <p class="text-center"> Already have an account? <a href="{%url 'user:login' %}">Login</a></p>
           </form>
         </div>
       </div>

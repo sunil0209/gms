@@ -432,3 +432,21 @@ input{
 .forgot-password a{
     text-decoration: none;
 }
+
+/* Dashboard Details */
+
+.container-dashboard-admin{
+display: flex;
+justify-content: space-around;
+margin-top: 20px;
+}
+
+.box {
+width: 30%;
+padding: 20px;
+background: linear-gradient(to bottom right, #4cea4c, #7fb7ef);
+text-align: center;
+color: black;
+border-radius: 10px;
+}
+

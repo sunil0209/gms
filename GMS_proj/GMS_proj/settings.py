@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user.apps.AppConfig',
     'shared_model',
+    'templates',
    
 ]
 
@@ -58,7 +59,9 @@ ROOT_URLCONF = 'GMS_proj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'user/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                os.path.join(BASE_DIR, 'templates/user'),
+                os.path.join(BASE_DIR, 'templates/backoffice')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

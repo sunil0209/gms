@@ -1,0 +1,42 @@
+
+{% extends 'index.html' %}
+   {% block content %}
+    {% load static %}
+   
+<h1>Dashboard {{request.session.name}} <h1>
+  <hr>
+              <h4>Hii :<span class="username">
+                {% for user in users %}
+                 {% if request.session.email_id == user.email %}
+                   {{ user.name }}
+                      {% endif %}
+                {% endfor %}
+              </span></h4>
+        
+    {% comment %} {{request.session.data}}  {% endcomment %}
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{%url 'user:index'%}">
+        <div class="sidebar-brand-icon rotate-n-15">
+         
+        </div>
+    </a>
+  
+    </table>
+    <div class="container-dashboard-admin">
+      <div class="box">
+          <h2>Total No of Employee</h2>
+          <p>Description 1</p>
+          <button class="btn">view</button>
+      </div>
+      <div class="box">
+          <h2>Total Complaits Registerd</h2>
+          <p>200 No of compliants</p>
+          <button class="btn">view</button>
+      </div>
+      <div class="box">
+          <h2>Total no Departments</h2>
+          <p>10 Departments</p>
+          <button class="btn">view</button>
+      </div>
+  </div>
+  
+    {% endblock %}

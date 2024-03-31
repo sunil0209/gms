@@ -51,7 +51,7 @@ def login_page(request ,response_data=None):
     return render(request, 'login.html', response_data)
 
 @auth
-def dashboard(request):
+def dashboard_user(request):
     User = Profile.objects.all()
     return render(request, 'dashboard.html', {'users': User})
 

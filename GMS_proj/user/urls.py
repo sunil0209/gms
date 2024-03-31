@@ -1,4 +1,4 @@
-
+app_name = 'user'
 from django.contrib import admin
 from django.urls import path
 from user import views
@@ -14,6 +14,6 @@ urlpatterns = [
     path('user_registration/', views.user_registration, name='user_registration'),
     path('profile/', views.profile, name='profile'),
     path('forgot_password/',views.forgot_password, name='forgot_password'),
-    path('dashboard/',views.dashboard, name='dashboard'),
+    path('dashboard_user/',views.dashboard_user, name='dashboard'),
     path('logout_view/',views.logout_view, name='logout_view'),
 ]
