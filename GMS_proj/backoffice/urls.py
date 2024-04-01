@@ -20,4 +20,6 @@ urlpatterns = [
     path('logout_view/',views.logout_view, name='logout_view'),
     path('view_all_members/',views.view_all_members, name='view_all_members'),
     path('employee_list/',views.employee_list, name='employee_list'),
+    # path('employee_detail/<int:employee_id>/', views.employee_detail, name='employee_detail'),
+    path('employee_detail/', views.employee_detail, name='employee_detail'),
 ]

@@ -7,43 +7,44 @@
 
         <thead>
           <tr>
-            <th scope="col">S.No.</th>
-            <th scope="col"style="width:10vw;">Profile id</th>
-            <th scope="col"style="width:15vw;">subject</th>
-            <th scope="col"style="width:10vw;">current_handler</th>
-            <th scope="col" style="width:40vw; text-align: center;">message</th>
-            <th scope="col"style="width:10vw;">created_at</th>
-            <th scope="col"style="width:10vw;">updated_at</th>
+            
+            <th scope="col"style="width:10vw;">Employe Id</th>
+            <th scope="col"style="width:15vw;">Name</th>
+            <th scope="col"style="width:10vw;">Mobile</th>
+            <th scope="col"style="width:10vw;">Email</th>
+          
             <th scope="col">Actions</th>
           </tr>
         </thead>
-        <tbody class="table-group-divider">
-            <tr>
-                <th scope="row">1</th>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                    <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                  <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                    </div>
-                  </td>
-              </tr>
 
-        </tbody>
-      </table>
+        {% for  employee in employees %}
+        <tr>
+          <td>{{employee.id}}</td>
+          <td>{{employee.name}}</td>
+          <td>{{employee.mobile}}</td>
+          <td>{{employee.email}}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary" onclick="showProfile({{ employee.id }})" ><i class="far fa-eye"></i></button>
+              <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+            </div>
+          </td>
+         
+        </tr>
+        {% endfor %}
+       
      </div>
-    
-
                 </div>
             </div>
         </div>
     </div>
+    <script>
+      function showProfile(employeeId) {
+          // Redirect to the detail page with employeeId
+          window.location.href = "{% url 'backoffice:employee_detail' %}?id=" + employeeId;
+      }
+  </script>
    {% endblock %}
 
 

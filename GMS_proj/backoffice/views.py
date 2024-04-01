@@ -1,10 +1,11 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.contrib.auth.hashers import make_password,check_password
 from shared_model.models import Profile
 from user.middleware import auth, login_checker
+from shared_model.models import Profile
 
 def logout_view(request):
     # Clear session data
@@ -147,4 +148,12 @@ def view_all_members(request):
     return render(request,"view_all_members.html")
 
 def employee_list(request):
-    return render(request,"employee_list.html")
+    employees = Profile.objects.all()
+    return render(request, 'employee_list.html', {'employees': employees})
+
+def employee_detail(request,employee_id):
+    employee_id =  request.GET.get('id')
+    employees = get_object_or_404(Profile,id =employee_id)
+    return render(request, 'employee_detail.html',{'employees': employees})
+
+   
