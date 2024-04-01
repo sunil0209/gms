@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+   {% block content %}
+    {% load static %}
+<div class="container mt-5" >
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="display-6 text-center mb-4">User Registration</h2>
+          
+          <form id="registration_form_id" action="{% url 'user:user_registration' %}" method="post" >
+          {% csrf_token %}
+            <div class="mb-3">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ data.name }}" required />
+          </div>
+          <div class="mb-3">
+              <input type="tel" class="form-control" id="phone_no" name="mobile" placeholder = "Mobile No" value="{{ data.mobile }}" required/>
+          </div>
+          <div class="mb-3">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ data.email }}" required>
+          </div>
+          <div class="mb-3 ">
+            <input type="password" class="form-control" id="password"  name="password" placeholder="Password" data-toggle="tooltip" data-placement="top" title="At least a  lowercase, uppercase, number, minimum 8 character" value="{{ data.password }}" required>
+
+          </div>
+          <div class="mb-3">
+              <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" value="{{ data.confirm_password }}">
+          </div>
+            <button type="submit" id ="registration_button_id" class="btn btn-primary w-100">Submit</button>
+            {% if request.method == 'POST'  %}
+            <ul class="messages">
+              {% for info in message%}
+              {%if "User Registered Successfully." in info%}
+              <li class="text-success">{{ info }}</li>
+              {% else %}
+              <li class="text-danger">{{ info }}</li>
+              {% endif %}
+              {% endfor %}
+              
+              {% comment %} {% if "User Registered Successfully." in error_message%}
+              <li class="text-success">{{ error_message }}</li>
+              {% else %}
+              <li class="text-danger">{{ error_message }}</li>
+              {% endif %} {% endcomment %}
+
+            </ul>
+            {% endif %}
+            <hr>
+            <p class="text-center"> Already have an account? <a href="{%url 'user:login' %}">Login</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endblock %}

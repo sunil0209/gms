@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="{% static '/css/my_style.css' %}">
 </head>
 <body>
+    <h1>backoffice</h1>
     <div class="container-fluid p-0 d-flex h-100">
         <div id="bdSidebar"
             class="d-flex flex-column flex-shrink-0 p-3 bg-success text-white offcanvas-md offcanvas-start">
@@ -32,7 +33,7 @@
             <hr>
             <ul class="mynav nav nav-pills flex-column mb-auto">
                 <li class="nav-item mb-1">
-                    <a href="{% url 'user:dashboard' %}">
+                    <a href="{% url 'backoffice:dashboard' %}">
                         <i class="fa-regular fa-newspaper"></i>
                         Dashboard
                     </a>
@@ -52,7 +53,11 @@
                         <span class="topic">Create Complaint</span> 
                     </a> 
                 </li> 
-                
+                <li class="sidebar-item"> 
+                    <a href="{% url 'user:view_all_complaint_admin' %}" class="sidebar-link"> 
+                        <i class="fas fa-sign-out-alt pe-2"></i> 
+                        <span class="topic">View All Complaints</span> 
+                    </a> 
                 <!--Admin Section---------------------->
                 <hr>
                 {% comment %} <li class="nav-item mb-1"> 
@@ -123,12 +128,6 @@
             <div  class="mynav nav text-white ">
                 
                 {% if request.session.is_logged_in  %}
-                <li class="sidebar-item"> 
-                    <a href="{% url 'user:emp_profile_admin' %}" class="sidebar-link"> 
-                        <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">Reply</span> 
-                    </a> 
-                </li> 
 
             <ul class="mynav nav nav-pills flex-column mb-auto">
                  <li class="nav-item  mb-1">
@@ -139,7 +138,6 @@
                     </a>
                 </li> 
             </ul>
-           
                 
                 {% else %} 
                 
@@ -162,7 +160,7 @@
                 <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
                     <i class="fa-solid fa-bars"></i>
                 </a>
-                <span class="ms-3">GMS System</span>
+                <span class="ms-3">GMS System Admin</span>
             </div>
             <div class="p-4">
                 <h3>GMS System</h3>

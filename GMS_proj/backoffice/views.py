@@ -139,7 +139,12 @@ def admin_registration(request):
             response_data['data'] = request.POST
            
 
-        return render(request,'admin_registration.html',response_data)
+        return render(request,'registration.html',response_data)
     else:
-        return render(request, 'admin_registration.html')
+        return render(request, 'registration.html')
         
+def view_all_members(request):
+    return render(request,"view_all_members.html")
+
+def employee_list(request):
+    return render(request,"employee_list.html")
