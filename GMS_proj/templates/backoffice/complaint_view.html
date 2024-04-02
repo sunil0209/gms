@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+   {% block content %}
+    {% load static %}
+
+<div class="container">
+      <table id="example_view" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 10vw;">profile_id</th>
+                <th style="width: 10vw;">user_name</th>
+                <th style="width: 10vw;">user_mobile</th>
+                <th style="width: 10vw;">Complain_subject</th>
+                <th style="width: 10vw;">Complain_message</th>
+                <th style="width: 10vw;">current_handler</th>
+                <th style="width: 10vw;">created_at</th>
+                <th style="width: 10vw;">updated_at</th>
+              </tr>
+        </thead>
+        
+        {% for  complaint in complaints%}
+        <tr>
+            <td>{{ data_to_send.p_id }}</td>
+            <td>{{ data_to_send.name }}</td>
+            <td>{{ data_to_send.mobile }}</td>
+            <td>{{ complaint.subject }}</td>
+            <td>{{ complaint.message }}</td>
+            <td>{{ complaint.current_handler }}</td>
+            <td>{{ complaint.created_at }}</td>
+            <td>{{ complaint.updated_at }}</td>
+        </tr>
+        {% endfor %}        
+      </table>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+      function showProfile(profile_id) {
+          // Redirect to the detail page with employeeId
+          window.location.href = "{% url 'backoffice:employee_detail' %}?id=" + profile_id;
+      }
+  </script>
+ {% endblock %}

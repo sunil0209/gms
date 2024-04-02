@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password,check_password
 from shared_model.models import Profile
 from user.middleware import auth, login_checker
 from shared_model.models import Profile
-
+from shared_model.models import CreateComplaint
 def logout_view(request):
     # Clear session data
     request.session.clear()
@@ -64,8 +64,6 @@ def view_emp_profile_admin(request):
     return render(request, 'view_emp_profile_admin.html')
 def specific_complaint(request):
     return render(request, 'specific_complaint.html')
-def complaint_user(request):
-    return render(request, 'complaint_user.html')
 @auth
 def profile(request):
     return render(request, 'profile.html')
@@ -147,6 +145,15 @@ def admin_registration(request):
 def view_all_members(request):
     return render(request,"view_all_members.html")
 
+def complaint_list(request):
+    complaints = CreateComplaint.objects.all()
+    return render(request, 'complaint_list.html', {'complaints': complaints})
+
+def complaint_view(request):
+    
+    complaint = CreateComplaint.objects.all()
+    data_to_send = request.session.get('data_to_send')
+    return render(request, 'complaint_view.html', {'complaints': complaint,'data_to_send': data_to_send} )
 def employee_list(request):
     employees = Profile.objects.all()
     return render(request, 'employee_list.html', {'employees': employees})

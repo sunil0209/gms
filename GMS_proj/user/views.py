@@ -5,7 +5,7 @@ from django.core.validators import validate_email
 from django.contrib.auth.hashers import make_password,check_password
 from shared_model.models import Profile
 from .middleware import auth, login_checker
-
+from shared_model.models import CreateComplaint
 def logout_view(request):
     # Clear session data
     request.session.clear()
@@ -63,8 +63,60 @@ def view_emp_profile_admin(request):
     return render(request, 'view_emp_profile_admin.html')
 def specific_complaint(request):
     return render(request, 'specific_complaint.html')
+
 def complaint_user(request):
-    return render(request, 'complaint_user.html')
+    if request.method== 'POST' and request.session['is_logged_in'] == True:
+            # Retrieve the profile_id from the session
+            p_id = request.session.get('profile_id')
+            profile = Profile.objects.get(id=p_id)
+            # Now you can use profile_id in this function
+            # For example, print it
+            print("Profile ID:", p_id)
+            print("Profile email:", profile.name)
+            print("Profile mobile:", profile.mobile)
+            
+            data_to_send={
+                "p_id":p_id,
+                "name":profile.name,
+                "mobile":profile.mobile,
+            }
+            
+            subject=request.POST.get("subject","")
+            # current_handler=request.POST.get("current_handler","")
+            message=request.POST.get("message","")
+            # created_at=request.POST.get("created_at","")
+            # updated_at=request.POST.get("updated_at","")
+            
+            error_msg = []
+
+            response_data = {
+                'status':'',
+                'message':[],
+                'data':''
+            }
+        
+            if subject == '':
+                error_msg.append('Field Subject cannot be Empty.')
+    
+            if message == '':
+                error_msg.append('Field Message cannot be Empty.')
+        
+            if(len(error_msg) == 0):
+                response_data['status'] = 'success'
+                response_data['message'] = ['Complaint Registered Successfully.']
+                response_data['data'] = []
+                complaint = CreateComplaint.objects.create(profile_id=p_id, subject=subject, message=message)
+                return render(request, 'complaint_list.html', {'complaints': [complaint], 'response_data': response_data})
+
+            else:
+                response_data['status'] = 'error'
+                response_data['message'] = error_msg
+                response_data['data'] = request.POST
+           
+
+            return render(request,'complaint_user.html',response_data)
+    else:
+        return render(request, 'complaint_user.html')
 @auth
 def profile(request):
     return render(request, 'profile.html')
