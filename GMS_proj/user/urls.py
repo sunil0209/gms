@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from user import views
 urlpatterns = [
-     path('', views.navigation, name='navigation'),
+    path('', views.navigation, name='navigation'),
     path('complaints/<str:operation>/', views.complaint, name='complaints'),
     path('user/<str:operation>/', views.user, name='user'),
     # path('profile/', views.profile, name='profile'),

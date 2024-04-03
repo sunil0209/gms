@@ -123,12 +123,12 @@
             <div  class="mynav nav text-white ">
                 
                 {% if request.session.is_logged_in  %}
-                <li class="sidebar-item"> 
+                {% comment %} <li class="sidebar-item"> 
                     <a href="{% url 'user:emp_profile_admin' %}" class="sidebar-link"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
                         <span class="topic">Reply</span> 
                     </a> 
-                </li> 
+                </li>  {% endcomment %}
 
             <ul class="mynav nav nav-pills flex-column mb-auto">
                  <li class="nav-item  mb-1">

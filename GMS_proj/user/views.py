@@ -25,7 +25,7 @@ def navigation(request):
 def user(request, operation):
     match operation:
         case 'dashboard_user':
-            @auth
+            # @auth
             def dashboard_user(request):
                 User = Profile.objects.all()
                 return render(request, 'dashboard.html', {'users': User})
@@ -38,7 +38,6 @@ def user(request, operation):
             #     return render(request, 'complaint_list.html')
             # def home(request):
                 
-                return render(request, 'home.html')
         case 'forgot_password':  
             def forgot_password(request):
                 return render(request, 'forgot_password.html')
