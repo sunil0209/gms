@@ -32,13 +32,13 @@
             <hr>
             <ul class="mynav nav nav-pills flex-column mb-auto">
                 <li class="nav-item mb-1">
-                    <a href="{% url 'user:dashboard' %}">
+                    <a href="{% url 'user:user' operation='dashboard' %}">
                         <i class="fa-regular fa-newspaper"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item  mb-1">
-                    <a href="{% url 'user:user_registration' %}">
+                    <a href="{% url 'user:user' operation='user_registration' %}">
                         <i class="fa-regular fa-user"></i>
                         User Registration
                         <span class="notification-badge"></span>
@@ -47,7 +47,7 @@
                {{request.session.is_logged_in}} 
          
                 <li class="sidebar-item"> 
-                    <a href="{% url 'user:complaint_user' %}" class="sidebar-link"> 
+                    <a href="{% url 'user:complaints' operation='complaint_user' %}" class="sidebar-link"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
                         <span class="topic">Create Complaint</span> 
                     </a> 
@@ -70,7 +70,7 @@
                         class="sidebar-dropdown list-unstyled collapse"
                         data-bs-parent="#sidebar"> 
                         <li class="sidebar-item"> 
-                            <a href="{% url 'user:login' %}" class="sidebar-link"> 
+                            <a href="{% url 'user:user' operation='login' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-in-alt pe-2"></i> 
                                 <span class="topic">Login</span> 
                             </a> 
@@ -84,36 +84,36 @@
                             </a> 
                         </li> 
                         <li class="sidebar-item"> 
-                            <a href="{% url 'user:profile' %}" class="sidebar-link" > 
+                            <a href="{% url 'user:user' operation='profile'%}" class="sidebar-link" > 
                                 <i class="fas fa-sign-out-alt pe-2" ></i> 
                                 <span class="topic">Profile</span> 
                             </a> 
                         </li> 
                        
-                        <li class="sidebar-item"> 
-                            <a href="{% url 'user:specific_complaint' %}" class="sidebar-link"> 
+                        {% comment %} <li class="sidebar-item"> 
+                            <a href="{% url 'user:complaints' operation='specific_complaint'  %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Specific Complaint</span> 
                             </a> 
-                        </li> 
+                        </li>  {% endcomment %}
                         <li class="sidebar-item"> 
-                            <a href="{% url 'user:view_complaint_reply_user' %}" class="sidebar-link"> 
+                            <a href="{% url 'user:complaints' operation='complaint_reply_user' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Complaint Reply</span> 
                             </a> 
                         </li> 
-                        <li class="sidebar-item"> 
+                        {% comment %} <li class="sidebar-item"> 
                             <a href="{% url 'user:emp_profile_admin' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Employee</span> 
                             </a> 
-                        </li> 
-                        <li class="sidebar-item"> 
+                        </li>  {% endcomment %}
+                        {% comment %} <li class="sidebar-item"> 
                             <a href="{% url 'user:view_emp_profile_admin' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2" ></i> 
                                 <span class="topic">view Employee Profile</span> 
                             </a> 
-                        </li> 
+                        </li>  {% endcomment %}
                     </ul> 
                 </li> 
             </ul>
@@ -132,7 +132,7 @@
 
             <ul class="mynav nav nav-pills flex-column mb-auto">
                  <li class="nav-item  mb-1">
-                    <a href="{% url 'user:logout_view' %}">
+                    <a href="{% url 'user:user' operation='logout_view' %}">
                         <i class="fa-regular fa-bookmark"></i>
                        Logout
                        

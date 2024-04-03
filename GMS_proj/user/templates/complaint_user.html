@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'navigation.html' %}
    {% block content %}
     {% load static %}
     <div class="row justify-content-center">
@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
         <h1 class="display-6 text-center">Complaint Form</h1>
-        <form action="{% url 'user:complaint_user' %}" method="post" >
+        <form action="{% url 'user:complaints' operation='complaint_user' %}" method="post" >
             {% csrf_token %}
             {% comment %} <div class="mb-3">
                 <input type="text" class="form-control" id="profile_id" name="profile_id" placeholder="Profile ID" required>

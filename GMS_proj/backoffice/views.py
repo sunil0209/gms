@@ -13,10 +13,9 @@ def logout_view(request):
     # Redirect to the login page or any other desired page
     return redirect('login') 
 
-def index(request):
-    return render(request, 'index.html')
-def view_all_complaint_admin(request):
-    return render(request, 'view_all_complaint_admin.html')
+def navigation(request):
+    return render(request, 'navigation.html')
+
 
 @login_checker 
 def login_page(request ,response_data=None):
@@ -58,21 +57,12 @@ def dashboard(request):
 
 def view_complaint_reply_user(request):
     return render(request, 'view_complaint_reply_user.html')
-def emp_profile_admin(request):
-    return render(request, 'emp_profile_admin.html')
-def view_emp_profile_admin(request):
-    return render(request, 'view_emp_profile_admin.html')
-def specific_complaint(request):
-    return render(request, 'specific_complaint.html')
+
+
 @auth
 def profile(request):
     return render(request, 'profile.html')
 
-def home(request):
-    
-    return render(request, 'home.html')
-# def logout_user(request):
-#     logout(request)
 
 
 def forgot_password(request):
@@ -141,9 +131,6 @@ def admin_registration(request):
         return render(request,'registration.html',response_data)
     else:
         return render(request, 'registration.html')
-        
-def view_all_members(request):
-    return render(request,"view_all_members.html")
 
 def complaint_list(request):
     complaints = CreateComplaint.objects.all()
@@ -164,3 +151,16 @@ def employee_detail(request,employee_id):
     return render(request, 'employee_detail.html',{'employees': employees})
 
    
+# def specific_complaint(request):
+#     return render(request, 'specific_complaint.html')
+
+# def view_all_complaint_admin(request):
+#     return render(request, 'view_all_complaint_admin.html')
+
+# def view_all_members(request):
+#     return render(request,"view_all_members.html")
+
+# def emp_profile_admin(request):
+#     return render(request, 'emp_profile_admin.html')
+# def view_emp_profile_admin(request):
+#     return render(request, 'view_emp_profile_admin.html')

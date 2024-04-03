@@ -1,9 +1,9 @@
 
-{% extends 'index.html' %}
+{% extends 'navigation.html' %}
    {% block content %}
     {% load static %}
    
-<h1>Dashboard Admin {{request.session.name}} <h1>
+<h1>Dashboard Admin Backoffice {{request.session.name}} <h1>
   <hr>
               <h4>Hii :<span class="username">
                 {% for user in users %}
