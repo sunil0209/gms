@@ -25,34 +25,46 @@
     <link rel="stylesheet" type="text/css" href="{% static '/css/my_style.css' %}">
 </head>
 <body>
+    <h1>backoffice</h1>
     <div class="container-fluid p-0 d-flex h-100">
         <div id="bdSidebar"
             class="d-flex flex-column flex-shrink-0 p-3 bg-success text-white offcanvas-md offcanvas-start">
-            <a href="#" class="navbar-brand">Users</a>
+            <a href="#" class="navbar-brand">backoffices</a>
             <hr>
             <ul class="mynav nav nav-pills flex-column mb-auto">
                 <li class="nav-item mb-1">
-                    <a href="{% url 'user:user' operation='dashboard' %}">
+                    <a href="{% url 'backoffice:dashboard' %}">
                         <i class="fa-regular fa-newspaper"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item  mb-1">
-                    <a href="{% url 'user:user' operation='user_registration' %}">
+                    <a href="{% url 'backoffice:admin_registration' %}">
                         <i class="fa-regular fa-user"></i>
-                        User Registration
+                        Employee Registration
                         <span class="notification-badge"></span>
                     </a>
                 </li>
                {{request.session.is_logged_in}} 
          
-                <li class="sidebar-item"> 
-                    <a href="{% url 'user:complaints' operation='complaint_user' %}" class="sidebar-link"> 
+                {% comment %} <li class="sidebar-item"> 
+                    <a href="{% url 'backoffice:backoffice' operation='' %}" class="sidebar-link"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">Create Complaint</span> 
+                        <span class="topic">View All Users</span> 
+                    </a> 
+                </li>  {% endcomment %}
+                <li class="sidebar-item"> 
+                    <a href="{% url 'backoffice:complaints' operation='complain_list' %}" class="sidebar-link"> 
+                        <i class="fas fa-sign-out-alt pe-2"></i> 
+                        <span class="topic">View All Complaints</span> 
+                    </a> 
+                </li>
+                <li class="sidebar-item"> 
+                    <a href="{% url 'backoffice:complaints' operation='employee_list' %}" class="sidebar-link"> 
+                        <i class="fas fa-sign-out-alt pe-2"></i> 
+                        <span class="topic">View All Employees</span> 
                     </a> 
                 </li> 
-                
                 <!--Admin Section---------------------->
                 <hr>
                 {% comment %} <li class="nav-item mb-1"> 
@@ -70,7 +82,7 @@
                         class="sidebar-dropdown list-unstyled collapse"
                         data-bs-parent="#sidebar"> 
                         <li class="sidebar-item"> 
-                            <a href="{% url 'user:user' operation='login' %}" class="sidebar-link"> 
+                            <a href="{% url 'backoffice:login' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-in-alt pe-2"></i> 
                                 <span class="topic">Login</span> 
                             </a> 
@@ -84,32 +96,32 @@
                             </a> 
                         </li> 
                         <li class="sidebar-item"> 
-                            <a href="{% url 'user:user' operation='profile'%}" class="sidebar-link" > 
+                            <a href="{% url 'backoffice:profile' %}" class="sidebar-link" > 
                                 <i class="fas fa-sign-out-alt pe-2" ></i> 
                                 <span class="topic">Profile</span> 
                             </a> 
                         </li> 
                        
                         {% comment %} <li class="sidebar-item"> 
-                            <a href="{% url 'user:complaints' operation='specific_complaint'  %}" class="sidebar-link"> 
+                            <a href="{% url 'backoffice:specific_complaint' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Specific Complaint</span> 
                             </a> 
                         </li>  {% endcomment %}
                         <li class="sidebar-item"> 
-                            <a href="{% url 'user:complaints' operation='complaint_reply_user' %}" class="sidebar-link"> 
+                            <a href="{% url 'backoffice:complaints' operation='reply' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Complaint Reply</span> 
                             </a> 
                         </li> 
                         {% comment %} <li class="sidebar-item"> 
-                            <a href="{% url 'user:emp_profile_admin' %}" class="sidebar-link"> 
+                            <a href="{% url 'backoffice:emp_profile_admin' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
                                 <span class="topic">Employee</span> 
                             </a> 
                         </li>  {% endcomment %}
                         {% comment %} <li class="sidebar-item"> 
-                            <a href="{% url 'user:view_emp_profile_admin' %}" class="sidebar-link"> 
+                            <a href="{% url 'backoffice:view_emp_profile_admin' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2" ></i> 
                                 <span class="topic">view Employee Profile</span> 
                             </a> 
@@ -123,29 +135,22 @@
             <div  class="mynav nav text-white ">
                 
                 {% if request.session.is_logged_in  %}
-                {% comment %} <li class="sidebar-item"> 
-                    <a href="{% url 'user:emp_profile_admin' %}" class="sidebar-link"> 
-                        <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">Reply</span> 
-                    </a> 
-                </li>  {% endcomment %}
 
             <ul class="mynav nav nav-pills flex-column mb-auto">
                  <li class="nav-item  mb-1">
-                    <a href="{% url 'user:user' operation='logout_view' %}">
+                    <a href="{% url 'backoffice:logout_view' %}">
                         <i class="fa-regular fa-bookmark"></i>
                        Logout
                        
                     </a>
                 </li> 
             </ul>
-           
                 
                 {% else %} 
                 
             <ul class="mynav nav nav-pills flex-column mb-auto">
                 <li class="nav-item  mb-1">
-                    <a href="{% url 'user:login' %}">
+                    <a href="{% url 'backoffice:login' %}">
                         <i class="fa-regular fa-bookmark"></i>
                         Login
                         <span class="notification-badge"></span>
@@ -162,7 +167,7 @@
                 <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
                     <i class="fa-solid fa-bars"></i>
                 </a>
-                <span class="ms-3">GMS System</span>
+                <span class="ms-3">GMS System Admin</span>
             </div>
             <div class="p-4">
                 <h3>GMS System</h3>

@@ -14,8 +14,8 @@ from shared_model.models import CreateComplaint
 #     # Redirect to the login page or any other desired page
 #     return redirect('login') 
 
-def navigation(request):
-    return render(request, 'navigation.html')
+def navigation_admin(request):
+    return render(request, 'navigation_admin.html')
 
 
 
@@ -45,145 +45,138 @@ def navigation(request):
 # def view_emp_profile_admin(request):
 #     return render(request, 'view_emp_profile_admin.html')
 
-def backoffice(request, operation):
-    match operation:
-        case 'dashboard_employee':
-            @auth
-            def dashboard_backoffice(request):
-                User = Profile.objects.all()
-                return render(request, 'dashboard.html', {'users': User})
-            
-        case 'profile':
-            @auth
-            def profile(request):
-                return render(request, 'profile.html')
-            
-        case 'forgot_password':  
-            def forgot_password(request):
-                return render(request, 'forgot_password.html')
-            
-        case 'login':
-            @login_checker 
-            def login_page(request ,response_data=None):
-                        response_data = {
-                            'status': '',
-                            'message': [],
-                            'data': '',
-                        }
+def dashboard_backoffice(request):
+    User = Profile.objects.all()
+    return render(request, 'dashboard.html', {'users': User})
 
-                        if request.method == 'POST':
-                            email = request.POST.get('email')
-                            password = request.POST.get('password')
-                            try:
-                                user = Profile.objects.get(email=email)
-                                if Profile.objects.filter(email=email).exists() and check_password(password, user.password):
-                                    request.session['is_logged_in'] = True
-                                    request.session['email_id'] = user.email
-                                    request.session['profile_id'] = user.id
-                                    # Check if the provided password matches the hashed password
-                                    # Both email exists and password matches, redirect to dashboard
-                                    return redirect("dashboard") 
-                                else:
-                                    # User with given email doesn't exist
-                                    request.session['is_logged_in'] = False
-                                    response_data['status'] = 'error'
-                                    response_data['message'] = ['Invalid Credentials Provided']
-                            except Profile.DoesNotExist:
-                                request.session['is_logged_in'] = False
-                                response_data['status'] = 'error'
-                                response_data['message'] = ['Invalid Credentials Provided']
-                                # response_data['data'] = request.POST
 
-                        return render(request, 'login.html', response_data)
+# @auth
+def profile(request):
+    return render(request, 'profile.html')
+    
+def forgot_password(request):
+    return render(request, 'forgot_password.html')
 
-        case 'logout_view':
-            def logout_view(request):
-                        # Clear session data
-                        request.session.clear()
-                        # Redirect to the login page or any other desired page
-                        return redirect('login') 
-        case 'registration':
-            def admin_registration(request):
-                    if request.method == 'POST':
+# @login_checker 
+def login_page(request ,response_data=None):
+            response_data = {
+                'status': '',
+                'message': [],
+                'data': '',
+            }
 
-                        name = request.POST.get('name','')
-                        mobile = request.POST.get('mobile','')
-                        email = request.POST.get('email','')
-                        password = request.POST.get('password','')
-                        confirm_password = request.POST.get('confirm_password','')
-                    
-
-                        error_msg = []
-
-                        response_data = {
-                            'status':'',
-                            'message':[],
-                            'data':''
-                        }
-                        
-
-                        if name == '':
-                            error_msg.append('Field Name cannot be Empty.')
-                        if email == '':
-                            error_msg.append('Field Email cannot be Empty.')
-                        if mobile == '':
-                            error_msg.append('Field Mobile Number cannot be Empty.')
-                        if password == '':
-                            error_msg.append('Field Password cannot be Empty.')
-                        if confirm_password == '':
-                            error_msg.append('Field Confirm Password cannot be Empty.')
-
-                        try:
-                            validate_email(email)
-                        except ValidationError as e:
-                            error_msg.append('Invalid Email Provided')
-                        else:
-                            pass
-
-                        if len(mobile) != 10:
-                            error_msg.append('Mobile number must be 10 character in length.')
-
-                        if password != confirm_password:
-                            error_msg.append('Password donot match confirm password.') 
-
-                        if Profile.objects.filter(email=email).exists():
-                                error_msg.append('Email already exists. Please use a different email address.')
-                                
-                        if(len(error_msg) == 0):
-                            response_data['status'] = 'success'
-                            response_data['message'] = ['User Registered Successfully.']
-                            response_data['data'] = []
-                            hashed_password=make_password(password)
-                            # If the email doesn't exist, create a new Profile object
-                            user = Profile.objects.create(name=name, mobile=mobile, email=email, password=hashed_password)
-                        else:
-                            response_data['status'] = 'error'
-                            response_data['message'] = error_msg
-                            response_data['data'] = request.POST
-                        
-
-                        return render(request,'registration.html',response_data)
+            if request.method == 'POST':
+                email = request.POST.get('email')
+                password = request.POST.get('password')
+                try:
+                    user = Profile.objects.get(email=email)
+                    if Profile.objects.filter(email=email).exists() and check_password(password, user.password):
+                        request.session['is_logged_in'] = True
+                        request.session['email_id'] = user.email
+                        request.session['profile_id'] = user.id
+                        # Check if the provided password matches the hashed password
+                        # Both email exists and password matches, redirect to dashboard
+                        return redirect("dashboard") 
                     else:
-                        return render(request, 'registration.html')
+                        # User with given email doesn't exist
+                        request.session['is_logged_in'] = False
+                        response_data['status'] = 'error'
+                        response_data['message'] = ['Invalid Credentials Provided']
+                except Profile.DoesNotExist:
+                    request.session['is_logged_in'] = False
+                    response_data['status'] = 'error'
+                    response_data['message'] = ['Invalid Credentials Provided']
+                    # response_data['data'] = request.POST
+            return render(request, 'login.html', response_data)
+
+def logout_view(request):
+            # Clear session data
+            request.session.clear()
+            # Redirect to the login page or any other desired page
+            return redirect('login') 
+
+def admin_registration(request):
+        if request.method == 'POST':
+
+            name = request.POST.get('name','')
+            mobile = request.POST.get('mobile','')
+            email = request.POST.get('email','')
+            password = request.POST.get('password','')
+            confirm_password = request.POST.get('confirm_password','')
+        
+
+            error_msg = []
+
+            response_data = {
+                'status':'',
+                'message':[],
+                'data':''
+            }
+            
+
+            if name == '':
+                error_msg.append('Field Name cannot be Empty.')
+            if email == '':
+                error_msg.append('Field Email cannot be Empty.')
+            if mobile == '':
+                error_msg.append('Field Mobile Number cannot be Empty.')
+            if password == '':
+                error_msg.append('Field Password cannot be Empty.')
+            if confirm_password == '':
+                error_msg.append('Field Confirm Password cannot be Empty.')
+
+            try:
+                validate_email(email)
+            except ValidationError as e:
+                error_msg.append('Invalid Email Provided')
+            else:
+                pass
+
+            if len(mobile) != 10:
+                error_msg.append('Mobile number must be 10 character in length.')
+
+            if password != confirm_password:
+                error_msg.append('Password donot match confirm password.') 
+
+            if Profile.objects.filter(email=email).exists():
+                    error_msg.append('Email already exists. Please use a different email address.')
+                    
+            if(len(error_msg) == 0):
+                response_data['status'] = 'success'
+                response_data['message'] = ['User Registered Successfully.']
+                response_data['data'] = []
+                hashed_password=make_password(password)
+                # If the email doesn't exist, create a new Profile object
+                user = Profile.objects.create(name=name, mobile=mobile, email=email, password=hashed_password)
+            else:
+                response_data['status'] = 'error'
+                response_data['message'] = error_msg
+                response_data['data'] = request.POST
+            
+
+            return render(request,'registration.html',response_data)
+        else:
+            return render(request, 'registration.html')
 
 
-def complaint(request, operation):
+def complaint(request, operation='view',complaint_id = None):
      match operation:
-        case 'complaint_view':
-            def complaint_view(request):
-                complaint = CreateComplaint.objects.all()
-                data_to_send = request.session.get('data_to_send')
-                return render(request, 'complaint_view.html', {'complaints': complaint,'data_to_send': data_to_send} )
-        case 'complaint_list':
-            def complaint_list(request):
+        case 'reply':
+            return render(request, 'complaint_reply_employee.html')
+        case 'view':
+            
+            if complaint_id is not None:
+                print("working id is",complaint_id)
+                complaints = get_object_or_404(CreateComplaint,id =complaint_id)
+                return render(request, 'complaint_view.html',{'complaints': complaints})
+            else:
                 complaints = CreateComplaint.objects.all()
                 return render(request, 'complaint_list.html', {'complaints': complaints})
+            
         case 'employee_list':
-            def employee_list(request):
                 employees = Profile.objects.all()
                 return render(request, 'employee_list.html', {'employees': employees})
         case 'employee_detail':
-            def employee_detail(request,employee_id):
                 employee_id =  request.GET.get('id')
                 employees = get_object_or_404(Profile,id =employee_id)
                 return render(request, 'employee_detail.html',{'employees': employees})

@@ -434,7 +434,7 @@ input{
 }
 
 /* Dashboard Details */
-
+ 
 .container-dashboard-admin{
 display: flex;
 justify-content: space-around;
@@ -442,11 +442,47 @@ margin-top: 20px;
 }
 
 .box {
-width: 30%;
 padding: 20px;
 background: linear-gradient(to bottom right, #4cea4c, #7fb7ef);
 text-align: center;
-color: black;
+color: rgb(255, 255, 255);
 border-radius: 10px;
+} 
+
+
+/* complaint dashboard  */
+.box {
+    background: rgb(32,122,221);
+    background: linear-gradient(90deg, rgb(48, 100, 204) 17%, rgb(26, 32, 31) 89%);
+    color: #ffffff; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    cursor: pointer; 
+
+  
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
 }
+.box p{
+    font-size:22px ;
+    color:  white;
+}
+
+
+.box:hover {
+    transform: translateY(-11px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+    background-color: #e0e0e0; 
+    transition: 2 ease;
+   
+}
+.container-dashboard-admin a{
+    text-decoration:none;
+}
+
 

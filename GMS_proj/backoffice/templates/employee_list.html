@@ -1,5 +1,5 @@
 
-{% extends 'navigation.html' %}
+{% extends 'navigation_admin.html' %}
    {% block content %}
     {% load static %}
 <div class="container">
@@ -42,7 +42,7 @@
     <script>
       function showProfile(employeeId) {
           // Redirect to the detail page with employeeId
-          window.location.href = "{% url 'backoffice:employee_detail' %}?id=" + employeeId;
+          window.location.href = "{% url 'backoffice:complaints' operation='employee_detail' %}?id=" + employeeId;
       }
   </script>
    {% endblock %}

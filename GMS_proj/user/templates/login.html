@@ -1,4 +1,4 @@
-{% extends 'navigation.html' %}
+{% extends 'navigation_user.html' %}
    {% block content %}
     {% load static %}
     <div class="container mt-5">
@@ -45,7 +45,7 @@
                         </form>
                         
                     </div>
-                    <p class="text-center ">Don't have an account? <a href="{% url 'user:user_registration' %}" class="text-warning">  Register </p>
+                    <p class="text-center ">Don't have an account? <a href="{% url 'user:registration_user' %}" class="text-warning">  Register </p>
 
                 </div>
 

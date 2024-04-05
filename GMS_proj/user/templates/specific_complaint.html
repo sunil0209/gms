@@ -1,0 +1,36 @@
+
+{% extends 'navigation.html' %}
+   {% block content %}
+    {% load static %}
+<div class="container">
+  <table id="example" class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col"style="width:10vw;">Complaint id</th>
+        <th scope="col"style="width:15vw;">subject</th>
+        <th scope="col" style="width:40vw; text-align: center;">message</th>
+        <th scope="col" style="width:40vw; text-align: center;">Actions</th>
+        {% comment %} <th scope="col" style="width:40vw; text-align: center;">status</th> {% endcomment %}
+      </tr>
+    </thead>
+    <tr>
+  
+        <td>{{ complaints.id }}</td>
+        <td>{{ complaints.subject }}</td>
+        <td>{{ complaints.message }}</td>
+       <td style="width:40vw; text-align: center;"><div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" onclick="showProfile({{ complaint.id }})" ><i class="far fa-eye"></i></button>
+
+      </div> </td>
+    </tr>
+  
+    
+  </table>
+     </div>
+    
+
+                </div>
+            </div>
+        </div>
+    </div>
+   {% endblock %}

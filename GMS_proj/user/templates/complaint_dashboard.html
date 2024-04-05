@@ -16,30 +16,26 @@
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'user:navigation' %}">
     <div class="sidebar-brand-icon rotate-n-15"></div>
 </a>
-
 <div class="container-dashboard-admin">
-  <div class="row">
-    <div class="col-md-4">
-    <div class="box" id="employee-box1">
-        <h2>Total Employee &nbsp;</h2>
-        <h1>{{ users|length }}</h1>
+    <div class="row">
+      <div class="col-md-4">
+        <a href="{% url 'user:complaints' operation='create' %}" class="sidebar-link"> 
+          <div class="box" id="employee-box1">
+            <h1>Create Complaint </h1>
+          </div>
+        </a>
+      </div>
+  
+      <div class="col-md-4">
+        <a href="{% url 'user:complaints' operation='view' %}" class="sidebar-link">
+          <div class="box" id="employee-box2">
+            <h1>View Complaint </h1>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="box" id="employee-box2">
-        <h2>Total Complaints &nbsp;</h2>
-        <h1>{{ complaints|length }}</h1>
-    </div>
-  </div>
-
-    <div class="col-md-4">
-     <div class="box" id="employee-box3">
-        <h2>Actice Acc &nbsp;</h2>
-        <h1>{{ complaints|length }}</h1>
-     </div>
-    </div>
-
-</div>
+  
 </div>
 </div>
 
@@ -47,23 +43,20 @@
     // Get the box elements
     const employeeBox1 = document.getElementById('employee-box1');
     const employeeBox2 = document.getElementById('employee-box2');
-    const employeeBox3 = document.getElementById('employee-box3');
+   
 
     // Add click event listeners to the boxes
     employeeBox1.addEventListener('click', function() {
         // Redirect to the specified URL when the box is clicked
-        window.location.href = "{% url 'backoffice:employee_list' %}";
+        window.location.href = "{% url 'user:complaints' operation='create' %}";
     });
 
     employeeBox2.addEventListener('click', function() {
         // Redirect to the specified URL when the box is clicked
-        window.location.href = "{% url 'backoffice:profile' %}";
+        window.location.href = "{% url 'user:complaints' operation='view' %}";
     });
 
-    employeeBox3.addEventListener('click', function() {
-        // Redirect to the specified URL when the box is clicked
-        window.location.href = "{% url 'backoffice:index' %}";
-    });
+ 
 </script>
 
 {% endblock %}
