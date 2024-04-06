@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
         <h1 class="display-6 text-center">Complaint Form</h1>
-        <form action="{% url 'user:complaints' operation='complaint_user' %}" method="post" >
+        <form action="{% url 'user:complaints' operation='create' %}" method="post" >
             {% csrf_token %}
 
             <div class="mb-3">

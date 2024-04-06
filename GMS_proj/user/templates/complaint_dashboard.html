@@ -3,9 +3,9 @@
 {% block content %}
 {% load static %}
    
-<h1>Dashboad{{ request.session.name }} </h1>
+<h1>Complaint Pannel{{ request.session.name }} </h1>
 <hr>
-<h4>Hii: <span class="username">
+{% comment %} <h4>Hii: <span class="username"> {% endcomment %}
     {% for user in users %}
     {% if request.session.email_id == user.email %}
     {{ user.name }}
@@ -18,7 +18,7 @@
 </a>
 <div class="container-dashboard-admin">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <a href="{% url 'user:complaints' operation='create' %}" class="sidebar-link"> 
           <div class="box" id="employee-box1">
             <h1>Create Complaint </h1>
@@ -26,7 +26,7 @@
         </a>
       </div>
   
-      <div class="col-md-4">
+      <div class="col-md-6">
         <a href="{% url 'user:complaints' operation='view' %}" class="sidebar-link">
           <div class="box" id="employee-box2">
             <h1>View Complaint </h1>

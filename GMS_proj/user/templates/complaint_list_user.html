@@ -6,7 +6,7 @@
       <table id="example" class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th scope="col"style="width:10vw;">Complaint id</th>
+            <th scope="col"style="width:10vw;">profile_id</th>
             <th scope="col"style="width:15vw;">subject</th>
             <th scope="col" style="width:40vw; text-align: center;">message</th>
             <th scope="col" style="width:40vw; text-align: center;">Actions</th>
@@ -14,8 +14,10 @@
           </tr>
         </thead>
         <tr>
+        
             {% for complaint in complaints %}
-            <td>{{ complaint.id }}</td>
+           
+            <td>{{ complaint.profile_id }}</td>
             <td>{{ complaint.subject }}</td>
             <td>{{ complaint.message }}</td>
            <td style="width:40vw; text-align: center;"><div class="btn-group" role="group" aria-label="Basic example">

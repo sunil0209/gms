@@ -441,25 +441,21 @@ justify-content: space-around;
 margin-top: 20px;
 }
 
-.box {
-padding: 20px;
-background: linear-gradient(to bottom right, #4cea4c, #7fb7ef);
-text-align: center;
-color: rgb(255, 255, 255);
-border-radius: 10px;
-} 
 
 
 /* complaint dashboard  */
 .box {
+  
     background: rgb(32,122,221);
-    background: linear-gradient(90deg, rgb(48, 100, 204) 17%, rgb(26, 32, 31) 89%);
+    background: linear-gradient(90deg, rgb(184, 188, 188) 17%, rgb(26, 32, 31) 89%);
     color: #ffffff; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
     cursor: pointer; 
+    height: 150px; /* Set a fixed height */
+    width: 300px; 
 
   
     text-align: center;
@@ -484,5 +480,12 @@ border-radius: 10px;
 .container-dashboard-admin a{
     text-decoration:none;
 }
-
+/* 
+Responsive  */
+@media (max-width: 768px) {
+    .box {
+      height: 100px; /* Adjust height for smaller screens */
+      width: 100px; /* Adjust width for smaller screens */
+    }
+  }
 

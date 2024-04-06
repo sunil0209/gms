@@ -44,14 +44,22 @@
                         <span class="notification-badge"></span>
                     </a>
                 </li>
-               {{request.session.is_logged_in}} 
-         
+               {% if request.session.is_logged_in %}
+              
+
+               <li class="sidebar-item"> 
+                <a href="{% url 'user:complaints' operation='reply' %}" class="sidebar-link"> 
+                    <i class="fas fa-sign-out-alt pe-2"></i> 
+                    <span class="topic">Reply</span> 
+                </a> 
+             </li>  
                 <li class="sidebar-item"> 
-                    <a href="{% url 'user:complaints' operation='create' %}" class="sidebar-link"> 
+                    <a href="{% url 'user:complaints' operation='home' %}" class="sidebar-link"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">Create Complaint</span> 
+                        <span class="topic">Complaint pannel</span> 
                     </a> 
                 </li> 
+                {% endif %}
                 
                 <!--Admin Section---------------------->
                 <hr>
@@ -123,12 +131,6 @@
             <div  class="mynav nav text-white ">
                 
                 {% if request.session.is_logged_in  %}
-                {% comment %} <li class="sidebar-item"> 
-                    <a href="{% url 'user:emp_profile_admin' %}" class="sidebar-link"> 
-                        <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">Reply</span> 
-                    </a> 
-                </li>  {% endcomment %}
 
             <ul class="mynav nav nav-pills flex-column mb-auto">
                  <li class="nav-item  mb-1">

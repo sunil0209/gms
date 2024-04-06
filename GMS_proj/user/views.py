@@ -21,8 +21,9 @@ def navigation(request):
 
 # @auth
 def dashboard_user(request):
-    User = Profile.objects.all()
-    return render(request, 'dashboard.html', {'users': User})
+    p_id=request.session.get("profile_id")
+    complaints = CreateComplaint.objects.filter(profile_id=p_id)
+    return render(request, 'dashboard.html', {'complaints': complaints})
 
 # @auth
 def profile(request):
@@ -135,10 +136,11 @@ def registration_user(request):
 
 #########Complaint section############
 # @auth
-def complaint(request, operation,complaint_id=None):
+def complaint(request, operation,complaint_id=None,):
     match operation:
         case 'home':
-            return render(request, 'complaint_dashboard.html')
+             return render(request, 'complaint_dashboard.html')
+            
         case 'reply':
             # Logic for view_complaint_reply_user
             return render(request, 'complaint_reply_user.html')
@@ -188,16 +190,29 @@ def complaint(request, operation,complaint_id=None):
                     else:
                         return render(request, 'complaint_user.html')
         case 'view':
-                complaint_id =  request.GET.get('id')
-                if complaint_id is not None:
-                    print("working id is",complaint_id)
-                    complaints = get_object_or_404(CreateComplaint,id =complaint_id)
-                    return render(request, 'specific_complaint.html',{'complaints': complaints})
+               complaint_id = request.GET.get('id')
+               if complaint_id is not None:
+                print("Working id is", complaint_id)
+                complaint = get_object_or_404(CreateComplaint, id=complaint_id)
+                return render(request, 'specific_complaint.html', {'complaint': complaint})
+               else:
+                p_id = request.session.get('profile_id')
+                print("profile_id",p_id)
+                complaints = CreateComplaint.objects.filter(profile_id=p_id)
+                return render(request, 'complaint_list_user.html', {'complaints': complaints})
+               
+        case 'list':   
+                profile_id = request.GET.get('id')
+                if profile_id is not None:
+                    
+                    complaints = CreateComplaint.objects.filter(profile_id=profile_id)
+
+                    return render(request, 'complaint_list_user.html', {'complaints': complaints}) 
                 else:
                     ###if id matches with the complaint created those complaints only show it to the user
-                    complaints = CreateComplaint.objects.all()
-                    return render(request, 'complaint_list_user.html', {'complaints': complaints})
                     
+                    complaints = CreateComplaint.objects.all()
+                    return render(request, 'complaint_list_user.html', {'complaints': complaints})       
         
         # def view_complaint_reply_user(request):
         #     return render(request, 'view_complaint_reply_user.html')    

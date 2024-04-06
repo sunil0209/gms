@@ -5,8 +5,8 @@
    
 <h1>Dashboad{{ request.session.name }} </h1>
 <hr>
-<h4>Hii: <span class="username">
-    {% for user in users %}
+<h4>Hello: <span class="username">
+    {% for user in complaints %}
     {% if request.session.email_id == user.email %}
     {{ user.name }}
     {% endif %}
@@ -21,20 +21,21 @@
   <div class="row">
     <div class="col-md-4">
     <div class="box" id="employee-box1">
-        <h2>Total Employee &nbsp;</h2>
-        <h1>{{ users|length }}</h1>
+        <h2>Total
+        Complaint&nbsp;</h2>
+        <h1>{{ complaints|length }}</h1>
     </div>
   </div>
   <div class="col-md-4">
     <div class="box" id="employee-box2">
-        <h2>Total Complaints &nbsp;</h2>
+        <h2>Active &nbsp; Complaints &nbsp;</h2>
         <h1>{{ complaints|length }}</h1>
     </div>
   </div>
 
     <div class="col-md-4">
      <div class="box" id="employee-box3">
-        <h2>Actice Acc &nbsp;</h2>
+        <h2>Closed Complatints &nbsp;</h2>
         <h1>{{ complaints|length }}</h1>
      </div>
     </div>
@@ -52,17 +53,17 @@
     // Add click event listeners to the boxes
     employeeBox1.addEventListener('click', function() {
         // Redirect to the specified URL when the box is clicked
-        window.location.href = "{% url 'backoffice:employee_list' %}";
+        window.location.href = "{% url 'user:complaints' operation='list' %}";
     });
 
     employeeBox2.addEventListener('click', function() {
         // Redirect to the specified URL when the box is clicked
-        window.location.href = "{% url 'backoffice:profile' %}";
+        window.location.href = "{% url 'backoffice:complaints' operation='profile' %}";
     });
 
     employeeBox3.addEventListener('click', function() {
         // Redirect to the specified URL when the box is clicked
-        window.location.href = "{% url 'backoffice:index' %}";
+        window.location.href = "{% url 'backoffice:complaints' operation='navigation' %}";
     });
 </script>
 
