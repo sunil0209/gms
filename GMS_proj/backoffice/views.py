@@ -15,7 +15,7 @@ from shared_model.models import CreateComplaint
 #     return redirect('login') 
 
 def navigation_admin(request):
-    return render(request, 'navigation_admin.html')
+    return render(request, 'backoffice/navigation_admin.html')
 
 
 
@@ -47,15 +47,15 @@ def navigation_admin(request):
 
 def dashboard(request):
     User = Profile.objects.all()
-    return render(request, 'dashboard.html', {'users': User})
+    return render(request, 'backoffice/dashboard.html', {'users': User})
 
 
 # @auth
 def profile(request):
-    return render(request, 'profile.html')
+    return render(request, 'backoffice/profile.html')
     
 def forgot_password(request):
-    return render(request, 'forgot_password.html')
+    return render(request, 'backoffice/forgot_password.html')
 
 # @login_checker 
 def login_page(request ,response_data=None):
@@ -87,7 +87,7 @@ def login_page(request ,response_data=None):
                     response_data['status'] = 'error'
                     response_data['message'] = ['Invalid Credentials Provided']
                     # response_data['data'] = request.POST
-            return render(request, 'login.html', response_data)
+            return render(request, 'backoffice/login.html', response_data)
 
 def logout_view(request):
             # Clear session data
@@ -154,29 +154,29 @@ def admin_registration(request):
                 response_data['data'] = request.POST
             
 
-            return render(request,'registration.html',response_data)
+            return render(request,'backoffice/registration.html',response_data)
         else:
-            return render(request, 'registration.html')
+            return render(request, 'backoffice/registration.html')
 
 
 def complaint(request, operation='view',complaint_id = None):
      match operation:
         case 'reply':
-            return render(request, 'complaint_reply_employee.html')
+            return render(request, 'backoffice/complaint_reply_employee.html')
         case 'view':
             
             if complaint_id is not None:
                 print("working id is",complaint_id)
                 complaints = get_object_or_404(CreateComplaint,id =complaint_id)
-                return render(request, 'complaint_view.html',{'complaints': complaints})
+                return render(request, 'backoffice/complaint_view.html',{'complaints': complaints})
             else:
                 complaints = CreateComplaint.objects.all()
-                return render(request, 'complaint_list.html', {'complaints': complaints})
+                return render(request, 'backoffice/complaint_list.html', {'complaints': complaints})
             
         case 'employee_list':
                 employees = Profile.objects.all()
-                return render(request, 'employee_list.html', {'employees': employees})
+                return render(request, 'backoffice/employee_list.html', {'employees': employees})
         case 'employee_detail':
                 employee_id =  request.GET.get('id')
                 employees = get_object_or_404(Profile,id =employee_id)
-                return render(request, 'employee_detail.html',{'employees': employees})
+                return render(request, 'backoffice/employee_detail.html',{'employees': employees})
