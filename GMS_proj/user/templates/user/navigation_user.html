@@ -31,21 +31,22 @@
             <a href="#" class="navbar-brand">Users</a>
             <hr>
             <ul class="mynav nav nav-pills flex-column mb-auto">
-                <li class="nav-item mb-1">
-                    <a href="{% url 'user:dashboard' %}">
-                        <i class="fa-regular fa-newspaper"></i>
-                        Dashboard
-                    </a>
-                </li>
-                <li class="nav-item  mb-1">
-                    <a href="{% url 'user:registration_user' %}">
-                        <i class="fa-regular fa-user"></i>
-                        User Registration
-                        <span class="notification-badge"></span>
-                    </a>
-                </li>
+                {% if not request.session.is_logged_in %}
+            <li class="nav-item  mb-1">
+                <a href="{% url 'user:registration_user' %}">
+                    <i class="fa-regular fa-user"></i>
+                    User Registration
+                    <span class="notification-badge"></span>
+                </a>
+            </li>
+                {% endif %}
                {% if request.session.is_logged_in %}
-              
+               <li class="nav-item mb-1">
+                <a href="{% url 'user:dashboard' %}">
+                    <i class="fa-regular fa-newspaper"></i>
+                    Dashboard
+                </a>
+            </li>
 
                <li class="sidebar-item"> 
                 <a href="{% url 'user:complaints' operation='reply' %}" class="sidebar-link"> 
@@ -56,13 +57,43 @@
                 <li class="sidebar-item"> 
                     <a href="{% url 'user:complaints' operation='home' %}" class="sidebar-link"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">Complaint pannel</span> 
+                        <span class="topic">Complaint</span> 
                     </a> 
                 </li> 
                 {% endif %}
                 
                 <!--Admin Section---------------------->
                 <hr>
+                <!--Bottom nav-->
+            <div  class="mynav nav text-white ">
+                
+                {% if request.session.is_logged_in  %}
+
+            <ul class="mynav nav nav-pills flex-column mb-auto">
+                 <li class="nav-item  mb-1">
+                    <a href="{% url 'user:logout_view' %}">
+                        <i class="fa-regular fa-bookmark"></i>
+                       Logout
+                       
+                    </a>
+                </li> 
+            </ul>
+           
+                
+                {% else %} 
+                
+            <ul class="mynav nav nav-pills flex-column mb-auto">
+                <li class="nav-item  mb-1">
+                    <a href="{% url 'user:login' %}">
+                        <i class="fa-regular fa-bookmark"></i>
+                        Login
+                        <span class="notification-badge"></span>
+                    </a>
+                </li>
+            </ul>
+     {% endif %} 
+            </div>
+
                 {% comment %} <li class="nav-item mb-1"> 
                     <a href="#"
                     class="sidebar-link collapsed"
@@ -127,36 +158,7 @@
             </ul>
             
             <hr>
-            <!--Bottom nav-->
-            <div  class="mynav nav text-white ">
-                
-                {% if request.session.is_logged_in  %}
-
-            <ul class="mynav nav nav-pills flex-column mb-auto">
-                 <li class="nav-item  mb-1">
-                    <a href="{% url 'user:logout_view' %}">
-                        <i class="fa-regular fa-bookmark"></i>
-                       Logout
-                       
-                    </a>
-                </li> 
-            </ul>
-           
-                
-                {% else %} 
-                
-            <ul class="mynav nav nav-pills flex-column mb-auto">
-                <li class="nav-item  mb-1">
-                    <a href="{% url 'user:login' %}">
-                        <i class="fa-regular fa-bookmark"></i>
-                        Login
-                        <span class="notification-badge"></span>
-                    </a>
-                </li>
-            </ul>
-     {% endif %} 
-            </div>
-
+            
         </div>
 
         <div class="bg-light flex-fill">

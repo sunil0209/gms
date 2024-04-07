@@ -45,7 +45,7 @@ def navigation_admin(request):
 # def view_emp_profile_admin(request):
 #     return render(request, 'view_emp_profile_admin.html')
 
-def dashboard_backoffice(request):
+def dashboard(request):
     User = Profile.objects.all()
     return render(request, 'dashboard.html', {'users': User})
 

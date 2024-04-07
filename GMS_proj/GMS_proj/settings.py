@@ -55,13 +55,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'GMS_proj.urls'
-
+# Set APP_DIRS to True to enable template discovery within app directories
+APP_DIRS = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-        os.path.join(BASE_DIR, 'user/templates'),  # Template directory for the 'user' app
-        os.path.join(BASE_DIR, 'backoffice/templates'),  # Template directory for the 'backoffice' app
+        os.path.join(BASE_DIR, 'user/templates/user'),  # Template directory for the 'user' app
+        os.path.join(BASE_DIR, 'backoffice/templates/backoffice'),  # Template directory for the 'backoffice' app
             # Add more template directories if needed
         ],
         'APP_DIRS': True,

@@ -20,7 +20,7 @@ def navigation(request):
 #########User section############
 
 # @auth
-def dashboard_user(request):
+def dashboard(request):
     p_id=request.session.get("profile_id")
     complaints = CreateComplaint.objects.filter(profile_id=p_id)
     return render(request, 'dashboard.html', {'complaints': complaints})
