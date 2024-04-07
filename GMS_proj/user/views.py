@@ -27,10 +27,15 @@ def dashboard(request):
 
 # @auth
 def profile(request):
+    profile_id = request.session.get('profile_id')
+    if profile_id is not None:
+                print("Working id is", profile_id)
+                profile = get_object_or_404(Profile, id=profile_id)
+                return render(request, 'profile.html', {'profile': profile})
+    else:
+         print("Not working")
     return render(request, 'profile.html')
-# def complaint_list(request):
-#     return render(request, 'complaint_list.html')
-# def home(request):
+
     
 def forgot_password(request):
     return render(request, 'forgot_password.html')
