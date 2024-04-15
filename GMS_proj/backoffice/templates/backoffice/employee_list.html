@@ -2,6 +2,9 @@
 {% extends 'backoffice/navigation_admin.html' %}
    {% block content %}
     {% load static %}
+    <button class="add-employee-btn">
+        <span class="icon">+</span> Add Employees
+      </button>
 <div class="container">
     <table id="example" class="table table-striped table-bordered">
 
@@ -27,8 +30,8 @@
             <div class="btn-group" role="group" aria-label="Basic example">
               <button type="button" class="btn btn-primary" onclick="showProfile({{ employee.id }})" ><i class="far fa-eye"></i></button>
               <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-            </div>
+              <button type="button" class="btn btn-danger delete-btn" data-employee-id="{{ employee.id }}"><i class="far fa-trash-alt"></i></button>
+      </div>
           </td>
          
         </tr>
@@ -44,6 +47,50 @@
           // Redirect to the detail page with employeeId
           window.location.href = "{% url 'backoffice:complaints' operation='employee_detail' %}?id=" + employeeId;
       }
+
+      
+      // delete Profile-----------------------------------------------------------
+
+        // Get CSRF token from meta tag
+        const csrfToken = document.querySelector('[name=csrf-token]').getAttribute('content');
+    
+        // Wait for the DOM to be ready
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select all delete buttons
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+    
+            // Loop through each delete button and attach event listener
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Get the employee ID from the data attribute
+                    const employeeId = this.getAttribute('data-employee-id');
+    
+                    // Confirm deletion
+                    if (confirm('Are you sure you want to delete this employee?')) {
+                        // Send AJAX request to delete employee
+                        fetch(`/backoffice/backoffice/delete-employee/${employeeId}/`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': csrfToken // Include CSRF token in headers
+                            },
+                            
+                        })
+                        .then(function(response) { return response.json(); })
+                        .then(function(json) {
+                           if(json.status == 'success'){
+                            this.closest('tr').remove();
+                            alert(json.message)
+                           }else{
+                            alert(json.message)
+                           }
+                             
+                          
+                        });
+                    }
+                });
+            });
+        });
   </script>
    {% endblock %}
 

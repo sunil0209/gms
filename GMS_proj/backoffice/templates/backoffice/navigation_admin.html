@@ -25,19 +25,14 @@
     <link rel="stylesheet" type="text/css" href="{% static '/css/my_style.css' %}">
 </head>
 <body>
-    <h1>backoffice</h1>
+ 
     <div class="container-fluid p-0 d-flex h-100">
         <div id="bdSidebar"
             class="d-flex flex-column flex-shrink-0 p-3 bg-success text-white offcanvas-md offcanvas-start">
             <a href="#" class="navbar-brand">backoffices</a>
             <hr>
             <ul class="mynav nav nav-pills flex-column mb-auto">
-                <li class="nav-item mb-1">
-                    <a href="{% url 'backoffice:dashboard' %}">
-                        <i class="fa-regular fa-newspaper"></i>
-                        Dashboard
-                    </a>
-                </li>
+                {% if  not request.session.is_logged_in %} 
                 <li class="nav-item  mb-1">
                     <a href="{% url 'backoffice:admin_registration' %}">
                         <i class="fa-regular fa-user"></i>
@@ -45,120 +40,51 @@
                         <span class="notification-badge"></span>
                     </a>
                 </li>
-               {{request.session.is_logged_in}} 
-         
-                {% comment %} <li class="sidebar-item"> 
-                    <a href="{% url 'backoffice:backoffice' operation='' %}" class="sidebar-link"> 
-                        <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">View All Users</span> 
-                    </a> 
-                </li>  {% endcomment %}
-                <li class="sidebar-item"> 
-                    <a href="{% url 'backoffice:complaints' operation='complain_list' %}" class="sidebar-link"> 
-                        <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">View All Complaints</span> 
-                    </a> 
-                </li>
-                <li class="sidebar-item"> 
-                    <a href="{% url 'backoffice:complaints' operation='employee_list' %}" class="sidebar-link"> 
-                        <i class="fas fa-sign-out-alt pe-2"></i> 
-                        <span class="topic">View All Employees</span> 
-                    </a> 
-                </li> 
-                <!--Admin Section---------------------->
-                <hr>
-                {% comment %} <li class="nav-item mb-1"> 
-                    <a href="#"
-                    class="sidebar-link collapsed"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#settings"
-                    aria-expanded="false"
-                    aria-controls="settings"> 
-                        <i class="fas fa-cog pe-2"></i> 
-                        <span class="topic">Admin </span> 
-                    </a> 
-                </li> {% endcomment %}
-                    <ul id="settings"
-                        class="sidebar-dropdown list-unstyled collapse"
-                        data-bs-parent="#sidebar"> 
+                {% endif %}
+
+               {% if  request.session.is_logged_in %} 
+                        <li class="nav-item mb-1">
+                            <a href="{% url 'backoffice:dashboard' %}">
+                                <i class="fa-regular fa-newspaper"></i>
+                                Dashboard
+                            </a>
+                        </li>
                         <li class="sidebar-item"> 
-                            <a href="{% url 'backoffice:login' %}" class="sidebar-link"> 
-                                <i class="fas fa-sign-in-alt pe-2"></i> 
-                                <span class="topic">Login</span> 
-                            </a> 
-                        </li> 
-                   
-                        </li> 
-                        <li class="sidebar-item"> 
-                            <a href="#" class="sidebar-link"> 
-                                <i class="fas fa-user-plus pe-2"></i> 
-                                <span class="topic">Register</span> 
-                            </a> 
-                        </li> 
-                        <li class="sidebar-item"> 
-                            <a href="{% url 'backoffice:profile' %}" class="sidebar-link" > 
-                                <i class="fas fa-sign-out-alt pe-2" ></i> 
-                                <span class="topic">Profile</span> 
-                            </a> 
-                        </li> 
-                       
-                        {% comment %} <li class="sidebar-item"> 
-                            <a href="{% url 'backoffice:specific_complaint' %}" class="sidebar-link"> 
+                            <a href="{% url 'backoffice:complaints' operation='view' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
-                                <span class="topic">Specific Complaint</span> 
+                                <span class="topic">Complaints</span> 
                             </a> 
-                        </li>  {% endcomment %}
+                        </li>
                         <li class="sidebar-item"> 
-                            <a href="{% url 'backoffice:complaints' operation='reply' %}" class="sidebar-link"> 
+                            <a href="{% url 'backoffice:complaints' operation='employee_list' %}" class="sidebar-link"> 
                                 <i class="fas fa-sign-out-alt pe-2"></i> 
-                                <span class="topic">Complaint Reply</span> 
+                                <span class="topic"> Employees</span> 
                             </a> 
                         </li> 
-                        {% comment %} <li class="sidebar-item"> 
-                            <a href="{% url 'backoffice:emp_profile_admin' %}" class="sidebar-link"> 
-                                <i class="fas fa-sign-out-alt pe-2"></i> 
-                                <span class="topic">Employee</span> 
-                            </a> 
-                        </li>  {% endcomment %}
-                        {% comment %} <li class="sidebar-item"> 
-                            <a href="{% url 'backoffice:view_emp_profile_admin' %}" class="sidebar-link"> 
-                                <i class="fas fa-sign-out-alt pe-2" ></i> 
-                                <span class="topic">view Employee Profile</span> 
-                            </a> 
-                        </li>  {% endcomment %}
+                        <hr>
+                        <li class="nav-item  mb-1">
+                            <a href="{% url 'backoffice:logout_view' %}">
+                                <i class="fa-regular fa-bookmark"></i>
+                               Logout
+                            </a>
+                        </li> 
+               
+             
+                
+                    {% else %} 
+                    <hr>
+                        <li class="nav-item  mb-1">
+                            <a href="{% url 'backoffice:login' %}">
+                                <i class="fa-regular fa-bookmark"></i>
+                                Login
+                                <span class="notification-badge"></span>
+                            </a>
+                        </li>
                     </ul> 
                 </li> 
             </ul>
-            
-            <hr>
-            <!--Bottom nav-->
-            <div  class="mynav nav text-white ">
-                
-                {% if request.session.is_logged_in  %}
-
-            <ul class="mynav nav nav-pills flex-column mb-auto">
-                 <li class="nav-item  mb-1">
-                    <a href="{% url 'backoffice:logout_view' %}">
-                        <i class="fa-regular fa-bookmark"></i>
-                       Logout
-                       
-                    </a>
-                </li> 
-            </ul>
-                
-                {% else %} 
-                
-            <ul class="mynav nav nav-pills flex-column mb-auto">
-                <li class="nav-item  mb-1">
-                    <a href="{% url 'backoffice:login' %}">
-                        <i class="fa-regular fa-bookmark"></i>
-                        Login
-                        <span class="notification-badge"></span>
-                    </a>
-                </li>
-            </ul>
-     {% endif %} 
-            </div>
+            {% endif %}  
+          
 
         </div>
 

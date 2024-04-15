@@ -48,6 +48,9 @@ body {
 #bdSidebar {
     min-width: 340px;
     background: linear-gradient(to bottom, #3498db, #000000);
+    z-index: 1;
+    box-shadow: 5px 5px 20px black;
+    
 
 }
 
@@ -489,3 +492,37 @@ Responsive  */
     }
   }
 
+
+
+  .scrollable-content {
+    height: calc(100vh - 100px); /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+/* -------------Button employees add-------------------- */
+
+.add-employee-btn {
+    background: linear-gradient(90deg, rgb(51, 125, 194) 17%, rgb(26, 32, 31) 89%);
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 3px 3px 5px black;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, background-position 0.3s ease; 
+    background-size: 200% auto;/
+}
+
+.add-employee-btn:hover {
+    background-position: right center, left center; /* Moves blue to right and black to left */
+    transform: scale(1.04); /* Increases the size on hover */
+}
+
+  
+  .icon {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+  

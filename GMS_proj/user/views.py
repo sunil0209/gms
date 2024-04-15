@@ -219,72 +219,56 @@ def complaint(request, operation,complaint_id=None,):
                     complaints = CreateComplaint.objects.all()
                     return render(request, 'complaint_list_user.html', {'complaints': complaints})       
         
-        # def view_complaint_reply_user(request):
-        #     return render(request, 'view_complaint_reply_user.html')    
-
-        
-    # def employee(request,operation='view',id=None):
-        
-    #     match operation :
-    #         case 'view':
-    #             if(id!=None):
-                  
-    #                 # Show specific employee data 
-    #                 employee_id = id
-    #                 # get that employee profile detail by id
-    #                 return render(request, 'profile.html',{'profile':'profile_data'})
-                
-    #             else:
-    #                 # id == None 
-    #                 # all_employee_profile = model
-    #                 return render(request, 'employee_profile_table.html',{'employees':'profile_data'})
-    #         case 'update':
-    #             # post_data = POST
-    #             #  if true 
-    #             #   response_data['status'] = 'success'
-    #             # response_data['message'] = 'Profile Updated Successfully'
-    #             # response_data['data'] = request.POST
-    #             response_data = {}
-                
-    #             return render(request, 'profile.html',response_data)
-    #         case 'chnage-password':
-    #             response = this.change_profile_password(request)
-                
-                    
-
-        #     }
-        # def complaint(request,operation='view',id=None):
-        #     match operation :
-        #         case 'view':
-        #             if id != None:
-        #                 #return specific complaint data to view_complaint_datails.html
-        #                 return render(request, 'view_complaint_datails.html',{'complaint':'complaint_Data'})
-                    
-        #             else:
-        #                 all_ = request.session['profile_id']
-        #                 # profile_data = model
-        #                 return render(request, 'complaint.html',{'complaints':'complaint_Data'})
-        #         case operation == 'view':
-        #             # post_data = POST
-        #             #  if true 
-        #             #   response_data['status'] = 'success'
-        #             # response_data['message'] = 'Profile Updated Successfully'
-        #             # response_data['data'] = request.POST
-        #             response_data = {}
-                    
-        #             return render(request, 'profile.html',response_data
-        #         case 'chnage-password':
-        #            response = hange_profile_password(request)
-                    
-                    
-
-        #     }
-            
-            
-        # def change_profile_password(data):
-        #     pass
-        
-        #########THINGS to LOOK FOR############
     
 def view_all_complaint_admin(request):
     return render(request, 'view_all_complaint_admin.html')
+
+def change_password(request):
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password','')
+        new_password = request.POST.get('new_password','')
+        confirm_password = request.POST.get('confirm_password')
+
+        profile = request.user.Profile
+        
+             
+
+        error_msg =[]
+        response_data = {
+             'status':'',
+             'message':'',
+             'data':''
+        }
+
+
+        if not check_password(old_password, request.user.password):
+            messages.error(request, 'Incorrect old password.')
+            return redirect('change_password')
+
+        # Check if new password and confirm password match
+        if new_password != confirm_password:
+            messages.error(request, 'New password and confirm password do not match.')
+            return redirect('change_password')
+        
+        profile.user.set_password(new_password)
+        profile.user.save()
+
+        messages.success(request, 'Password successfully updated.')
+        return redirect('profile')
+    return  render(request,'change_password.html')
+
+def profile_update(request):
+    p_id = request.session.get('profile_id')
+    print(p_id)
+    return render(request,'profile.html')
+
+
+#Authentication login
+def oauth_gmail_login(request):
+    # Redirect to Gmail authentication
+    return redirect('social:begin', 'google-oauth2')
+
+
+def oauth_callback(request):
+    # Process the callback from the authentication provider
+    return redirect('user:dashboard')

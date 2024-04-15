@@ -1,10 +1,62 @@
-
-{% extends backoffice/'navigation_admin.html' %}
-   {% block content %}
+{% extends 'backoffice/navigation_admin.html' %}
+{% block content %}
     {% load static %}
-<h1>showing the details of employee</h1>
-
-{{employees.id}}
-
-
+    <div class="row">
+        <!-- General Information Section -->
+        <div class="col-md-6">
+            <fieldset class="border p-2">
+                <legend class="w-auto">General Information</legend>
+                <div class="mb-3">
+                    <label for="id" class="form-label">ID:</label>
+                    <input type="text" class="form-control" id="id" name="id" value="{{ employees.id }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ employees.name }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="mobile" class="form-label">Mobile:</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile" pattern="[0-9]{10}" value="{{ employees.mobile }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ employees.email }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="profile_type_id" class="form-label">Profile Type ID:</label>
+                    <input type="text" class="form-control" id="profile_type_id" name="profile_type_id" value="{{ employees.profile_type_id }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="department_id" class="form-label">Department ID:</label>
+                    <input type="text" class="form-control" id="department_id" name="department_id" value="{{ employees.department_id }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="created_at" class="form-label">Created At:</label>
+                    <input type="text" class="form-control" id="created_at" name="created_at" value="{{ employees.created_at }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="updated_at" class="form-label">Updated At:</label>
+                    <input type="text" class="form-control" id="updated_at" name="updated_at" value="{{ employees.updated_at }}" disabled>
+                </div>
+            </fieldset>
+        </div>
+        <!--Personal information-->
+            <div class="col-md-6">
+            <fieldset class="border p-2">
+                <legend class="w-auto">Personal Information</legend>
+                <div class="mb-3">
+                    <label for="state" class="form-label">State:</label>
+                    <input type="text" class="form-control" id="state" name="state" placeholder="Chhattisgarh" value="{{ employees.state }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City:</label>
+                    <input type="text" class="form-control" id="city" name="city" placeholder="Raipur" value="{{ employees.city }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Shankar Nagar" value="{{ employees.address }}" disabled>
+                </div>
+            </fieldset>
+        </div>
+    </div>
 {% endblock %}

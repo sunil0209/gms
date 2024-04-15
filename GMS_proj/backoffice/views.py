@@ -7,6 +7,19 @@ from shared_model.models import Profile
 from user.middleware import auth, login_checker
 from shared_model.models import Profile
 from shared_model.models import CreateComplaint
+from django.http import JsonResponse
+
+from django.contrib.auth.decorators import login_required
+
+def oauth_gmail_login(request):
+    # Redirect to Gmail authentication
+    return redirect('social:begin', 'google-oauth2')
+
+
+def oauth_callback(request):
+    # Process the callback from the authentication provider
+    return redirect('backoffice:dashboard')
+
 
 # def logout_view(request):
 #     # Clear session data
@@ -19,31 +32,6 @@ def navigation_admin(request):
 
 
 
-
-# def view_complaint_reply_user(request):
-#     return render(request, 'view_complaint_reply_user.html')
-
-# @auth
-# def profile(request):
-#     return render(request, 'profile.html')
-
-# def forgot_password(request):
-#     return render(request, 'forgot_password.html')
-
- 
-# def specific_complaint(request):
-#     return render(request, 'specific_complaint.html')
-
-# def view_all_complaint_admin(request):
-#     return render(request, 'view_all_complaint_admin.html')
-
-# def view_all_members(request):
-#     return render(request,"view_all_members.html")
-
-# def emp_profile_admin(request):
-#     return render(request, 'emp_profile_admin.html')
-# def view_emp_profile_admin(request):
-#     return render(request, 'view_emp_profile_admin.html')
 
 def dashboard(request):
     User = Profile.objects.all()
@@ -76,7 +64,7 @@ def login_page(request ,response_data=None):
                         request.session['profile_id'] = user.id
                         # Check if the provided password matches the hashed password
                         # Both email exists and password matches, redirect to dashboard
-                        return redirect("dashboard") 
+                        return redirect("backoffice:dashboard") 
                     else:
                         # User with given email doesn't exist
                         request.session['is_logged_in'] = False
@@ -93,7 +81,7 @@ def logout_view(request):
             # Clear session data
             request.session.clear()
             # Redirect to the login page or any other desired page
-            return redirect('login') 
+            return render(request,'backoffice/login.html') 
 
 def admin_registration(request):
         if request.method == 'POST':
@@ -159,16 +147,32 @@ def admin_registration(request):
             return render(request, 'backoffice/registration.html')
 
 
-def complaint(request, operation='view',complaint_id = None):
+def complaint(request, operation,complaint_id = None):
      match operation:
         case 'reply':
             return render(request, 'backoffice/complaint_reply_employee.html')
+          
         case 'view':
-            
+            print("case view")
+            complaint_id=request.GET.get("id")
+            print("working id is",complaint_id)
             if complaint_id is not None:
                 print("working id is",complaint_id)
                 complaints = get_object_or_404(CreateComplaint,id =complaint_id)
-                return render(request, 'backoffice/complaint_view.html',{'complaints': complaints})
+                
+                profile_id = complaints.profile_id
+                print("profile_id",profile_id)
+                
+                # profile_id=CreateComplaint.objects.get(profile_id=profile_id)
+                # p_id=int(complaints.profile_id)
+                
+                
+                profile = Profile.objects.get(id=profile_id)
+                print("PROFILE DATA SUCCESS",profile)
+                print(type(profile))
+                return render(request, 'backoffice/complaint_view.html',{'complaints': complaints,'profile':profile})
+            
+                
             else:
                 complaints = CreateComplaint.objects.all()
                 return render(request, 'backoffice/complaint_list.html', {'complaints': complaints})
@@ -180,3 +184,29 @@ def complaint(request, operation='view',complaint_id = None):
                 employee_id =  request.GET.get('id')
                 employees = get_object_or_404(Profile,id =employee_id)
                 return render(request, 'backoffice/employee_detail.html',{'employees': employees})
+
+
+def delete_employee(request,employee_id):
+    
+    
+    # Get the employee object or return 404 if not found
+    employee = get_object_or_404(Profile, id=employee_id)
+    
+    # Delete the employee
+    if(employee.delete()):
+    
+    # Return a JSON response indicating success
+        response_data = {
+            'status':'success',
+            'message':'User deleted successfully',
+            'data':[]
+
+        }
+    else:
+         response_data = {
+            'status':'error',
+            'message':'Unable to delete user.',
+            'data':[]
+
+        }
+    return JsonResponse(response_data)

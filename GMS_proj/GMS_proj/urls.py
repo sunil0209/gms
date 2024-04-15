@@ -21,5 +21,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('user/', include("user.urls")),
     path('backoffice/', include("backoffice.urls")),
+    # path('oauth2/', include('oauth2_provider_app.urls', namespace='oauth2_provider_app')),
+path('auth/', include('social_django.urls', namespace='social')),
     
 ]

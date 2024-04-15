@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user.apps.AppConfig',
     'shared_model',
+    'social_django',
+    
+
+    
+    
     
    
 ]
@@ -50,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'app.middleware.rule_one',
+   
     
 ]
 
@@ -72,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                 
             ],
         },
     },
@@ -139,5 +145,20 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'user/static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
+    #social app custom setings
+'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    
 ]
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'openid': 'OpenID scope'},
+    'CLIENT_ID_GENERATOR_CLASS': 'oauth2_provider.generators.ClientIdGenerator',
+    'CLIENT_SECRET_GENERATOR_CLASS': 'oauth2_provider.generators.ClientSecretGenerator',
+}
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '121742523439-s30kcv1je7lg798uen7rd4ntk1oagh39.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+LOGIN_REDIRECT_URL = 'backoffice:dashboard'
+#LOGIN_REDIRECT_URL = '/user/dashboard/'

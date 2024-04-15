@@ -1,45 +1,68 @@
 {% extends 'backoffice/navigation_admin.html' %}
-   {% block content %}
+
+{% block content %}
     {% load static %}
+    <button class="add-employee-btn m-10">
+        <span class="icon"><i class="fa-solid fa-reply "></i></span> Reply
+      </button>
+      <button class="add-employee-btn">
+        <span class="icon"><i class="fa-solid fa-pen"></i></span> Update
+      </button>
 
-<div class="container">
-      <table id="example_view" class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th style="width: 10vw;">profile_id</th>
-                <th style="width: 10vw;">user_name</th>
-                <th style="width: 10vw;">user_mobile</th>
-                <th style="width: 10vw;">Complain_subject</th>
-                <th style="width: 10vw;">Complain_message</th>
-                <th style="width: 10vw;">current_handler</th>
-                <th style="width: 10vw;">created_at</th>
-                <th style="width: 10vw;">updated_at</th>
-              </tr>
-        </thead>
-        
-        {% for  complaint in complaints%}
-        <tr>
-            <td>{{ data_to_send.p_id }}</td>
-            <td>{{ data_to_send.name }}</td>
-            <td>{{ data_to_send.mobile }}</td>
-            <td>{{ complaint.subject }}</td>
-            <td>{{ complaint.message }}</td>
-            <td>{{ complaint.current_handler }}</td>
-            <td>{{ complaint.created_at }}</td>
-            <td>{{ complaint.updated_at }}</td>
-        </tr>
-        {% endfor %}        
-      </table>
-    </div>
+    <div class="container" "margin: 0 auto;">
+        <div class="row my-12 justify-content-center">
+            <div class="col-md-12 shadow p-3 mb-5 bg-body-tertiary rounded ">
+                <div class="card mb-3" style="max-width: 800px;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-body">
+                                {% comment %} <form method="post" action="{% url 'your_form_action_url' %}"> {% endcomment %}
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="profile_id">Profile ID:</label>
+                                        <input type="text" id="profile_id" name="profile_id" value="{{ profile.id }}" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="complain_id">Complain ID:</label>
+                                        <input type="text" id="complain_id" name="complain_id" value="{{ complaints.id }}" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_name">User Name:</label>
+                                        <input type="text" id="user_name" name="user_name" value="{{ profile.name }}" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_mobile">User Mobile:</label>
+                                        <input type="text" id="user_mobile" name="user_mobile" value="{{ profile.mobile }}" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="complain_subject">Complain Subject:</label>
+                                        <input type="text" id="complain_subject" name="complain_subject" value="{{ complaints.subject }}" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="complain_message">Complain Message:</label>
+                                        <textarea id="complain_message" name="complain_message" class="form-control" readonly>{{ complaints.message }}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="current_handler">Current Handler:</label>
+                                        <input type="text" id="current_handler" name="current_handler" value="{{ complaints.current_handler }}" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="created_at">Created At:</label>
+                                        <input type="text" id="created_at" name="created_at" value="{{ complaints.created_at }}" class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="updated_at">Updated At:</label>
+                                        <input type="text" id="updated_at" name="updated_at" value="{{ complaints.updated_at }}" class="form-control" readonly>
+                                    </div>
 
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-      function showProfile(profile_id) {
-          // Redirect to the detail page with employeeId
-          window.location.href = "{% url 'backoffice:employee_detail' %}?id=" + profile_id;
-      }
-  </script>
- {% endblock %}
+
+{% endblock %}
