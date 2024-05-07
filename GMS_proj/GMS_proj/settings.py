@@ -14,7 +14,8 @@ from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+MEDIA_ROOT = 'C:\\images_gms'
+MEDIA_URL = '/media/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -38,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user.apps.AppConfig',
     'shared_model',
-    'social_django',
     
 
     
@@ -146,19 +146,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
     #social app custom setings
-'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     
 ]
 
-OAUTH2_PROVIDER = {
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'openid': 'OpenID scope'},
-    'CLIENT_ID_GENERATOR_CLASS': 'oauth2_provider.generators.ClientIdGenerator',
-    'CLIENT_SECRET_GENERATOR_CLASS': 'oauth2_provider.generators.ClientSecretGenerator',
-}
+# OAUTH2_PROVIDER = {
+#     'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'openid': 'OpenID scope'},
+#     'CLIENT_ID_GENERATOR_CLASS': 'oauth2_provider.generators.ClientIdGenerator',
+#     'CLIENT_SECRET_GENERATOR_CLASS': 'oauth2_provider.generators.ClientSecretGenerator',
+# }
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '121742523439-s30kcv1je7lg798uen7rd4ntk1oagh39.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '121742523439-s30kcv1je7lg798uen7rd4ntk1oagh39.apps.googleusercontent.com'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
-LOGIN_REDIRECT_URL = 'backoffice:dashboard'
-#LOGIN_REDIRECT_URL = '/user/dashboard/'
+# LOGIN_REDIRECT_URL = 'user:login_with_google'
+# #LOGIN_REDIRECT_URL = '/user/dashboard/'
+
+# # settings.py
+
+# SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+

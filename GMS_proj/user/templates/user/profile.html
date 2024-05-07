@@ -2,68 +2,55 @@
 {% extends 'navigation_user.html' %}
    {% block content %}
     {% load static %}
-<div class="row">
+
+
+    <div class="row justify-content-center">
+      <h1 class="text-center">Profile</h1>
+      <div class="col-md-10">
+          <div class="table-wrapper">
+    <div class="row">
 
     <!-- General Information Section -->
     <div class="col-md-6">
       <fieldset class="border p-2">
         <legend class="w-auto">General Information</legend>
 
-        <div class="mb-3">
-          <label for="name" class="form-label">Name:</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Ram"  value="{{profile.name}}" disabled>
+        <div class="row">
+          <form id="update" action="{% url 'user:update' %}" method="post" >
+            {% csrf_token %}
+              <div class="mb-3">
+                  <label for="name" class="form-label">Name:</label>
+                  <input type="text" class="form-control"  name="name" placeholder="Name" value="{% if  data %}{{ data.name }}{% else %}{{ profile.name }}{% endif %}" required />
+            </div>
+            <div class="mb-3">
+              <label for="mobile" class="form-label">Mobile:</label>
+                <input type="tel" class="form-control"  name="mobile" placeholder = "Mobile No" value="{% if data%}{{ data.mobile }}{% else %}{{ profile.mobile }}{% endif %}" required/>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control"  name="email" placeholder="Email" value="{% if data %}{{ data.email }}{% else %}{{ profile.email }}{% endif %}" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Update</button>
+            {% if request.method == 'POST'  %}
+                <ul class="messages">
+                  {% for info in message%}
+                  {%if "Profile Updated Successfully." in info%}
+                  <li class="text-success">{{ info }}</li>
+                  {% else %}
+                  <li class="text-danger">{{ info }}</li>
+                  {% endif %}
+                  {% endfor %}
+                  
+                  {% comment %} {% if "User Registered Successfully." in error_message%}
+                  <li class="text-success">{{ error_message }}</li>
+                  {% else %}
+                  <li class="text-danger">{{ error_message }}</li>
+                  {% endif %} {% endcomment %}
+    
+                </ul>
+                {% endif %}
+          </form>
         </div>
+      </div>
 
-        <div class="mb-3">
-          <label for="mobile" class="form-label">Mobile:</label>
-          <input type="text" class="form-control" id="mobile" name="mobile" pattern="[0-9]{10}"  value="{{profile.mobile}}"placeholder="+91 1234567890" disabled>
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email:</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com"value="{{profile.email}}" disabled>
-        </div>
-
-        <div class="mb-3">
-          <label for="gender" class="form-label">Gender:</label>
-          <input type="text" class="form-control" placeholder="Male" disabled>
-        </div>
-
-      </fieldset>
-    </div>
-
-    <!-- Personal Information Section -->
-    <div class="col-md-6">
-      <fieldset class="border p-2">
-        <legend class="w-auto">Personal Information</legend>
-        <div class="mb-3">
-            <label for="satee" class="form-label">State</label>
-            <input type="text" class="form-control" id="state" name="address" placeholder="Chhattisgarh" disabled>
-          </div>
-
-        <div class="mb-3">
-          <label for="address" class="form-label">city</label>
-          <input type="text" class="form-control" id="city" name="address" placeholder="Raipur" disabled>
-        </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">Address:</label>
-            <input type="text" class="form-control" id="address" name="address" placeholder="Shankar Nagar"disabled>
-          </div>
-
-      </fieldset>
-    </div>
-
-  </div>
-  
-  <a href="{% url 'user:profile_update' %}"><input type="button" value="Profile Update">
-  <a href="{% url 'user:change_password' %}"><input type="button" value="Change Password">
-      
-
-    </a>
-  </input>
-</div>
-
-
-
-
-
-{% endblock %}
+        {% endblock %}

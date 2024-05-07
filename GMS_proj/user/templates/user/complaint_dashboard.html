@@ -3,9 +3,12 @@
 {% block content %}
 {% load static %}
    
-<h1>Complaint Pannel{{ request.session.name }} </h1>
+
+<h1 class="text-center">Complaint Pannel </h1>
 <hr>
+
 {% comment %} <h4>Hii: <span class="username"> {% endcomment %}
+  <div class="container">
     {% for user in users %}
     {% if request.session.email_id == user.email %}
     {{ user.name }}
@@ -18,10 +21,12 @@
 </a>
 <div class="container-dashboard-admin">
     <div class="row">
+
       <div class="col-md-6">
         <a href="{% url 'user:complaints' operation='create' %}" class="sidebar-link"> 
           <div class="box" id="employee-box1">
-            <h1>Create Complaint </h1>
+            <i class="fa-brands fa-creative-commons-share"></i>
+            <h2>Create Complaint </h2 >
           </div>
         </a>
       </div>
@@ -29,7 +34,8 @@
       <div class="col-md-6">
         <a href="{% url 'user:complaints' operation='view' %}" class="sidebar-link">
           <div class="box" id="employee-box2">
-            <h1>View Complaint </h1>
+            <i class="fa-regular fa-eye"></i>
+            <h2>View Complaint </h2>
           </div>
         </a>
       </div>
@@ -37,7 +43,7 @@
   </div>
   
 </div>
-</div>
+
 
 <script>
     // Get the box elements

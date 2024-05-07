@@ -7,37 +7,13 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-class ComplaintMessage(models.Model):
-    profile_id = models.IntegerField()
-    message = models.CharField(max_length=255)
-    media = models.CharField(max_length=255)
-    created_at = models.DateField()
-    updated_at = models.DateField()
 
-    class Meta:
-        managed = True
-        db_table = 'complaint_message'
-        app_label = 'shared_model'
 class ComplaintStatus(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
         managed = True
         db_table = 'complaint_status'
-        app_label = 'shared_model'
-
-
-class CreateComplaint(models.Model):
-    profile_id = models.IntegerField()
-    subject = models.CharField(max_length=40)
-    message = models.CharField(max_length=1000)
-    current_handler = models.CharField(max_length=35)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
-
-    class Meta:
-        managed = True
-        db_table = 'create_complaint'
         app_label = 'shared_model'
 
 
@@ -66,9 +42,10 @@ class Profile(models.Model):
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=128)
     profile_type_id = models.IntegerField()
+    profile_type=models.CharField(max_length=50)
     designation_id = models.IntegerField()
     department_id = models.IntegerField()
-    created_at = models.DateField()
+    created_at = models.DateTimeField()
     updated_at = models.DateField()
     last_login = models.DateTimeField(blank=True, null=True)
     class Meta:
@@ -76,14 +53,31 @@ class Profile(models.Model):
         db_table = 'profile'
         app_label = 'shared_model'
 
-
-class ProfileType(models.Model):
-    name = models.CharField(max_length=30)
-
+class CreateComplaint(models.Model):
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    subject = models.CharField(max_length=40)
+    message = models.CharField(max_length=1000)
+    current_handler = models.CharField(max_length=35)
+    created_at = models.DateTimeField()
+    image=models.URLField()
     class Meta:
         managed = True
-        db_table = 'profile_type'
+        db_table = 'complaint'
         app_label = 'shared_model'
+
+class ComplaintMessage(models.Model):
+    id=models.IntegerField(primary_key=True)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    message = models.CharField(max_length=255)
+    media = models.CharField(max_length=255)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField()
+    complaint_id=models.IntegerField()
+    class Meta:
+        managed = True
+        db_table = 'complaint_message'
+        app_label = 'shared_model'
+
 
 
 class UserRegistration(models.Model):

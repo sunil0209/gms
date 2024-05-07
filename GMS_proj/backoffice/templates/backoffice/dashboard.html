@@ -2,16 +2,15 @@
 {% extends 'backoffice/navigation_admin.html' %}
 {% block content %}
 {% load static %}
-   
-<h1>Dashboad{{ request.session.name }} </h1>
-<hr>
-<h4>Hii: <span class="username">
-    {% for user in users %}
-    {% if request.session.email_id == user.email %}
-    {{ user.name }}
-    {% endif %}
-    {% endfor %}
-</span></h4>
+<div class="container">
+    <div class="dashboard-heading">
+        <div>
+           <h1>Dashboad </h1> 
+        </div>
+        <div class="right"><h4>Hello: {{ request.session.name }} </div>
+        
+   </div>
+   <hr>
 
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'user:navigation' %}">
     <div class="sidebar-brand-icon rotate-n-15"></div>
@@ -21,20 +20,24 @@
   <div class="row">
     <div class="col-md-4">
     <div class="box" id="employee-box1">
+        <i class="fa-regular fa-user"></i>
         <h2>Total Employee &nbsp;</h2>
-        <h1>{{ users|length }}</h1>
+
+        <h1>{{ user|length }}</h1>
     </div>
   </div>
   <div class="col-md-4">
     <div class="box" id="employee-box2">
-        <h2>Total Complaints &nbsp;</h2>
+        <i class="fa-regular fa-address-book"></i>
+        <h2>Total Complaints </h2>
         <h1>{{ complaints|length }}</h1>
     </div>
   </div>
 
     <div class="col-md-4">
      <div class="box" id="employee-box3">
-        <h2>Actice Acc &nbsp;</h2>
+        <i class="fa-regular fa-circle-check"></i>
+        <h2>Active Acc &nbsp;</h2>
         <h1>{{ complaints|length }}</h1>
      </div>
     </div>
@@ -42,6 +45,8 @@
 </div>
 </div>
 </div>
+</div>
+
 
 <script>
     // Get the box elements
@@ -57,7 +62,7 @@
 
     employeeBox2.addEventListener('click', function() {
         // Redirect to the specified URL when the box is clicked
-        window.location.href = "{% url 'backoffice:complaints' operation='profile' %}";
+        window.location.href = "{% url 'backoffice:create_complaint' %}";
     });
 
     employeeBox3.addEventListener('click', function() {

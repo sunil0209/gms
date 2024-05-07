@@ -1,9 +1,8 @@
 var table = $('#example').DataTable({
   header: true,
-  lengthMenu: [
-    [5, 10, 25, 50, -1],
-    ['5', '10', '25', '50', 'All']
-  ]
+  paging: false,
+  scrollCollapse: true,
+  scrollY: '280px'
 });
 
 // showing password Requirements
@@ -52,4 +51,11 @@ function validateForm() {
     errorDiv.innerHTML = "";
     return true;
   }
+}
+
+
+function showProfile(complaint_id) {
+
+  // Redirect to the detail page with employeeId
+  window.location.href = "http://127.0.0.1:8000/backoffice/complaint/message?id="    + complaint_id;
 }

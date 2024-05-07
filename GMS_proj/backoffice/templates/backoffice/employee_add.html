@@ -9,7 +9,7 @@
         <div class="card-body">
           <h2 class="text-center">Employee Registration</h2><br>
           
-          <form id="registration_form_id" action="{% url 'backoffice:admin_registration' %}" method="post" >
+          <form id="registration_form_id" action="{% url 'backoffice:employee_add' %}" method="post" >
           {% csrf_token %}
             <div class="mb-3">
               <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ data.name }}" required />
@@ -31,7 +31,7 @@
             <select class="form-select " id="employee_type" name="employee_type" required>
                 <option value="" selected disabled>Select Employee Type</option>
                 <option value="Admin">Admin</option>
-                <option value="Complaint handler(staff)">Complaint handler(staff)</option>
+                <option value="Complaint handler">Complaint Handler(Staff)</option>
             </select>
         </div>
             <button type="submit" id ="registration_button_id" class="btn btn-primary w-100">Submit</button>
@@ -54,7 +54,6 @@
             </ul>
             {% endif %}
             <hr>
-            <p class="text-center"> Already have an account? <a href="{%url 'user:login' %}">Login</a></p>
           </form>
         </div>
       </div>

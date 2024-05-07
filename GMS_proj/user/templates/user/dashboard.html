@@ -3,43 +3,42 @@
 {% block content %}
 {% load static %}
    
-<h1>Dashboad{{ request.session.name }} </h1>
-<hr>
-<h4>Hello: <span class="username">
-    {% for user in complaints %}
-    {% if request.session.email_id == user.email %}
-    {{ user.name }}
-    {% endif %}
-    {% endfor %}
-</span></h4>
-
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'user:navigation' %}">
-    <div class="sidebar-brand-icon rotate-n-15"></div>
-</a>
-
+<div class="container">
+    <div class="dashboard-heading">
+        <div>
+           <h1>Dashboad </h1> 
+        </div>
+        <div class="right"><h4>Hello: {{ request.session.name }} </div>
+        
+   </div>
+   <hr>
 <div class="container-dashboard-admin">
   <div class="row">
     <div class="col-md-4">
     <div class="box" id="employee-box1">
-        <h2>Total
-        Complaint&nbsp;</h2>
+        <i class="fa-regular fa-address-book"></i>
+        <h2>Total Complaint</h2>
         <h1>{{ complaints|length }}</h1>
     </div>
   </div>
   <div class="col-md-4">
     <div class="box" id="employee-box2">
-        <h2>Active &nbsp; Complaints &nbsp;</h2>
+        <i class="fa-regular fa-circle-check"></i>
+        <h2>Active Complaints </h2>
         <h1>{{ complaints|length }}</h1>
     </div>
   </div>
+ 
 
     <div class="col-md-4">
      <div class="box" id="employee-box3">
-        <h2>Closed Complatints &nbsp;</h2>
+        <i class="fa-regular fa-circle-xmark"></i>
+        <h2>Closed Complatint</h2>
         <h1>{{ complaints|length }}</h1>
      </div>
     </div>
 
+</div>
 </div>
 </div>
 </div>

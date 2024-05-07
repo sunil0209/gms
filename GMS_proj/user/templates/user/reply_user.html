@@ -1,0 +1,58 @@
+{% extends 'user/navigation_user.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+        <div class="table-wrapper">
+
+        <!-- Display Messages Section -->
+        <div class="col-md-12">
+            <h1 class="text-center">Chat Section</h1>
+            
+            <div id="chat-container" class="message-box" style="overflow-y: auto;">
+                {% for chat in chats %}
+                            {% if chat.profile.profile_type == "Admin" or chat.profile.profile_type == "Complaint handler(staff)" %}
+                                <div class="card chat-message user1" id="user-bg-1">
+                            {% else %}
+                                <div class="card chat-message user2" id="user-bg-2">
+                            {% endif %}
+                                <div class="card-body card-body-very-small">
+                                    <h6><b>{{ chat.profile.name }}</b></h6>
+                                    <p class="msg-text">{{ chat.message }}</p>
+                                    <p class="msg-time">{{ chat.created_at|date:"d/m/Y H:i" }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Reply Section User -->
+            <form id="registration_form_id" action="{% url 'user:complaints' operation='message'  %}?id={{complaintid}}" method="post">
+                {% csrf_token %}
+                <div class="col-md-12">
+                    <div class="input-group mb-3">
+                    
+                    
+                        <input type="text" class="form-control message user" placeholder="Message" name="message">
+                        <input type="hidden" class="form-control" name="complaint_id" value="{{complaintid}}">
+                   
+                    <button type="submit" id="send-btn" class="btn send-btn">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+                </div>
+            </form>
+
+            
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            var chatContainer = document.getElementById('content');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            var chatContainer = document.getElementById('chat-container');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+        }
+        </script>
+{% endblock %}

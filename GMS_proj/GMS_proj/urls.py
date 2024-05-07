@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+from user.views import google_auth_callback
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('user/', include("user.urls")),
     path('backoffice/', include("backoffice.urls")),
     # path('oauth2/', include('oauth2_provider_app.urls', namespace='oauth2_provider_app')),
-path('auth/', include('social_django.urls', namespace='social')),
-    
-]
+    path('auth/', include('social_django.urls', namespace='social')),
+    path('auth/google/callback/', google_auth_callback, name='google_auth_callback'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

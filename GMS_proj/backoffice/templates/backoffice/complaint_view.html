@@ -2,61 +2,74 @@
 
 {% block content %}
     {% load static %}
-    <button class="add-employee-btn m-10">
-        <span class="icon"><i class="fa-solid fa-reply "></i></span> Reply
-      </button>
-      <button class="add-employee-btn">
-        <span class="icon"><i class="fa-solid fa-pen"></i></span> Update
-      </button>
+    
+    <div class="box2">
+        <div class="reply">
+            {% comment %} <a href="{% url 'backoffice:complaints' operation='message/' %}" class="sidebar-link"> {% endcomment %}
+                <button class="add-employee-btn m-10"  onclick="showProfile({{ complaints.id }})">
+                    <span class="icon"><i class="fa-solid fa-reply"></i></span>
+                    Reply
+                </button>
+            {% comment %} </a> {% endcomment %}
+        </div>
+    </div>
 
-    <div class="container" "margin: 0 auto;">
-        <div class="row my-12 justify-content-center">
-            <div class="col-md-12 shadow p-3 mb-5 bg-body-tertiary rounded ">
-                <div class="card mb-3" style="max-width: 800px;">
-                    <div class="row g-0">
-                        <div class="col-md-12">
-                            <div class="card-body">
-                                {% comment %} <form method="post" action="{% url 'your_form_action_url' %}"> {% endcomment %}
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        <label for="profile_id">Profile ID:</label>
-                                        <input type="text" id="profile_id" name="profile_id" value="{{ profile.id }}" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="complain_id">Complain ID:</label>
-                                        <input type="text" id="complain_id" name="complain_id" value="{{ complaints.id }}" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="user_name">User Name:</label>
-                                        <input type="text" id="user_name" name="user_name" value="{{ profile.name }}" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="user_mobile">User Mobile:</label>
-                                        <input type="text" id="user_mobile" name="user_mobile" value="{{ profile.mobile }}" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="complain_subject">Complain Subject:</label>
-                                        <input type="text" id="complain_subject" name="complain_subject" value="{{ complaints.subject }}" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="complain_message">Complain Message:</label>
-                                        <textarea id="complain_message" name="complain_message" class="form-control" readonly>{{ complaints.message }}</textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="current_handler">Current Handler:</label>
-                                        <input type="text" id="current_handler" name="current_handler" value="{{ complaints.current_handler }}" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="created_at">Created At:</label>
-                                        <input type="text" id="created_at" name="created_at" value="{{ complaints.created_at }}" class="form-control" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="updated_at">Updated At:</label>
-                                        <input type="text" id="updated_at" name="updated_at" value="{{ complaints.updated_at }}" class="form-control" readonly>
-                                    </div>
+    <form id="update-form" method="post" action="{% url 'backoffice:complaints' operation='update' %}">
+        {% csrf_token %}
+        <button id="update-btn" class="add-employee-btn">
+            <span class="icon"><i class="fa-solid fa-pen"></i></span> 
+            Update
+        </button>
+       
+            <div class="row my-12 justify-content-center">
+              
+                
+                    <div class="card mb-3" style="max-width: 600px;">
+                        <div class="heading">
+                            <h1>Update Current Handler</h1>
+                            <hr>
+                           </div>
+                       
+                      
+                                <div class="card-body col-8" style=" margin: 0 auto;">
+                                   
+                                   
 
-                                    
-                                </form>
+                            <div class="form-group">
+                                <label for="profile_id">Profile ID:</label>
+                                <input type="text" id="profile_id" name="profile_id" value="{% if request.method == 'POST' %}{{ complaints.profile.id }}{% else %}{{ complaints.profile.id }}{% endif %}" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="complain_id">Complain ID:</label>
+                                <input type="text" id="complain_id" name="complain_id" value="{% if request.method == 'POST' %}{{ complaints.id }}{% else %}{{ complaints.id }}{% endif %}" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_name">User Name:</label>
+                                <input type="text" id="user_name" name="user_name" value="{% if request.method == 'POST' %}{{ complaints.profile.name }}{%else%}{{ complaints.profile.name }}{%endif%}" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_mobile">User Mobile:</label>
+                                <input type="text" id="user_mobile" name="user_mobile" value="{% if request.method == 'POST' %}{{ complaints.profile.mobile }}{% else %}{{ complaints.profile.mobile }}{% endif %}" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="complain_subject">Complain Subject:</label>
+                                <input type="text" id="complain_subject" name="complain_subject" value="{% if request.method == 'POST' %}{{ complaints.subject }}{% else %}{{ complaints.subject }}{% endif %}" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="complain_message">Complain Message:</label>
+                                <textarea id="complain_message" name="complain_message" class="form-control" readonly>{% if request.method == 'POST' %}{{ complaints.message }}{% else %}{{ complaints.message }}{% endif %}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="current_handler">Current Handler:</label>
+                                <input type="text" id="current_handler" name="current_handler" value="{% if data %}{{ data.current_handler }}{% else %}{{ complaints.current_handler }}{% endif %}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="created_at">Created At:</label>
+                                <input type="text" id="created_at" name="created_at" value="{% if request.method == 'POST' %}{{ complaints.created_at }}{% else %}{{ complaints.created_at }}{% endif %}" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="updated_at">Updated At:</label>
+                                <input type="text" id="updated_at" name="updated_at" value="{% if request.method == 'POST' %}{{ complaints.updated_at }}{% else %}{{ complaints.updated_at }}{% endif %}" class="form-control" readonly>
                             </div>
                         </div>
                     </div>
@@ -64,5 +77,17 @@
             </div>
         </div>
     </div>
-
+</div>
+</form>
+    
+<script>
+    function showProfile(complaint_id) {
+        // Redirect to the detail page with employeeId
+        window.location.href = "http://127.0.0.1:8000/backoffice/complaint/message?id="    + complaint_id;
+    }
+</script>
 {% endblock %}
+
+
+
+

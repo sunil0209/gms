@@ -2,27 +2,46 @@
 {% extends 'backoffice/navigation_admin.html' %}
    {% block content %}
     {% load static %}
-<div class="row">
+
+    <div class="row justify-content-center">
+      <h1 class="text-center">Profile</h1>
+      <div class="col-md-10">
+          <div class="table-wrapper">
+    <div class="row">
 
     <!-- General Information Section -->
     <div class="col-md-6">
       <fieldset class="border p-2">
         <legend class="w-auto">General Information</legend>
-
+      
+        <form id="update" action="{% url 'backoffice:update' %}" method="post" >
+           {% csrf_token %}
         <div class="mb-3">
           <label for="name" class="form-label">Name:</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Ram" disabled>
+          <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="{% if  data %}{{ data.name }}{% else %}{{ profile.name }}{% endif %}"  required/>
         </div>
 
         <div class="mb-3">
           <label for="mobile" class="form-label">Mobile:</label>
-          <input type="text" class="form-control" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="+91 1234567890" disabled>
+          <input type="tel" class="form-control" id="mobile"placeholder="Mobile No" name="mobile" pattern="[0-9]{10}" placeholder="+91 1234567890" value="{% if data%}{{ data.mobile }}{% else %}{{ profile.mobile }}{% endif %}" required/>
         </div>
 
         <div class="mb-3">
-          <label for="gender" class="form-label">Gender:</label>
-          <input type="text" class="form-control" placeholder="Male" disabled>
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" class="form-control" placeholder="Email" name="email" value="{% if data %}{{ data.email }}{% else %}{{ profile.email }}{% endif %}" required/>
         </div>
+        <button type="submit" class="btn btn-primary w-100">Update</button>
+        {% if request.method == 'POST'  %}
+            <ul class="messages">
+              {% for info in message%}
+              {%if "Profile Updated Successfully." in info%}
+              <li class="text-success">{{ info }}</li>
+              {% else %}
+              <li class="text-danger">{{ info }}</li>
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+
 
       </fieldset>
     </div>

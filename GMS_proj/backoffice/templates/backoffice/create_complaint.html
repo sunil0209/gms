@@ -1,0 +1,39 @@
+{% extends 'backoffice/navigation_admin.html' %}
+{% block content %}
+    {% load static %}
+    
+    <div class="container">
+        <hr>
+        <div class="row justify-content-center">
+            <h1 class="text-center">Complaints</h1>
+            <div class="col-md-10">
+                <div class="table-wrapper">
+                    <table id="example" class="table table-striped table-bordered table-white-bg">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width:10vw;">Id</th>
+                                <th scope="col" style="width:10vw;">Profile Id</th>
+                                <th scope="col" style="width:15vw;">Subject</th>
+                                <th scope="col" style="width:10vw;">Message</th>
+                                <th scope="col" style="width:10vw;">Current Handler</th>
+                                <th scope="col" style="width:10vw;">Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for complaint in create_complaint %}
+                            <tr>
+                                <td>{{ complaint.id }}</td>
+                                <td>{{ complaint.profile_id }}</td>
+                                <td>{{ complaint.subject }}</td>
+                                <td>{{ complaint.message }}</td>
+                                <td>{{ complaint.created_handler }}</td>
+                                <td>{{ complaint.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

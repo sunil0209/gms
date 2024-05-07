@@ -16,6 +16,12 @@ urlpatterns = [
     path('login/',views.login_page, name='login'),
     path('logout_view/',views.logout_view, name='logout_view'),
     path('forgot_password/',views.forgot_password, name='forgot_password'),
-    path('delete-employee/<int:employee_id>/', views.delete_employee, name='delete_employee'),
+    path('delete_employee', views.delete_employee, name='delete_employee'),
+    # path('test/', views.test, name='test'),
+    path('edit/',views.update, name='update'),
+    path('complaints',views.create_complaint, name='create_complaint'),
+    path('add',views.employee_add, name='employee_add'),
+    
+    
     
 ]

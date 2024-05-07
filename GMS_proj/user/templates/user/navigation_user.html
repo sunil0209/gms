@@ -48,12 +48,7 @@
                 </a>
             </li>
 
-               <li class="sidebar-item"> 
-                <a href="{% url 'user:complaints' operation='reply' %}" class="sidebar-link"> 
-                    <i class="fas fa-sign-out-alt pe-2"></i> 
-                    <span class="topic">Reply</span> 
-                </a> 
-             </li>  
+               
                 <li class="sidebar-item"> 
                     <a href="{% url 'user:complaints' operation='home' %}" class="sidebar-link"> 
                         <i class="fas fa-sign-out-alt pe-2"></i> 
@@ -156,17 +151,12 @@
             
         </div>
 
-        <div class="bg-light flex-fill">
-            <div class="p-2 d-md-none d-flex text-white bg-success">
-                <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar">
-                    <i class="fa-solid fa-bars"></i>
-                </a>
-                <span class="ms-3">GMS System</span>
+        <div id="content" class="col">
+            <div class="top-bar" >
+             <h7>GMS System</h7>
+             <p>(Grievances management system)</p>
             </div>
-            <div class="p-4">
-                <h3>GMS System</h3>
-                <hr>
-                <div id="content" class="col">
+            <div class="bar"><span> </span></div> 
                     {% block content %}
 
                     <!---Dynamic Nav Content -->     
